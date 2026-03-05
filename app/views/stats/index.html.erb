@@ -1,8 +1,8 @@
 <div class="stats">
   <h1>Statistika</h1>
-  <p class="subtitle">Kaj si ljudje zelijo? Skupaj je bilo podanih <strong><%= @total_wishes %></strong> zelj.</p>
+  <p class="subtitle">Kaj si ljudje želijo? Skupaj je bilo podanih <strong><%= @total_wishes %></strong> želj.</p>
 
-  <h2>Povprecno ujemanje strank</h2>
+  <h2>Povprečno ujemanje strank</h2>
   <div class="stats-cards">
     <% @parties.each do |data| %>
       <div class="stat-card">
@@ -15,7 +15,7 @@
     <% end %>
   </div>
 
-  <h2>Zadnje zelje ljudi</h2>
+  <h2>Zadnje želje ljudi</h2>
   <div class="recent-wishes">
     <% @recent_wishes.each do |wish| %>
       <%= link_to wish_path(wish), class: "recent-wish" do %>

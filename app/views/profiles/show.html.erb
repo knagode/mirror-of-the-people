@@ -1,9 +1,9 @@
 <div class="my-wishes">
-  <h1>Moje zelje</h1>
-  <p class="subtitle">Tvoj skupni profil na podlagi <%= @wishes.count %> <%= @wishes.count == 1 ? "zelje" : "zelj" %>.</p>
+  <h1>Moje želje</h1>
+  <p class="subtitle">Tvoj skupni profil na podlagi <%= @wishes.count %> <%= @wishes.count == 1 ? "želje" : "želj" %>.</p>
 
   <div class="profile-url-box">
-    <p>Shrani ta URL, da ohranis dostop do svojega profila. Z njim se lahko vrnes kadarkoli, tudi iz drugega brskalnika.</p>
+    <p>Shrani ta URL, da ohraniš dostop do svojega profila. Z njim se lahko vrneš kadarkoli, tudi iz drugega brskalnika.</p>
     <div class="profile-url-field">
       <input type="text" value="<%= profile_url(@profile.token) %>" readonly class="profile-url-input" id="profile-url">
       <button onclick="navigator.clipboard.writeText(document.getElementById('profile-url').value).then(() => this.textContent = 'Kopirano!')" class="btn btn-small">Kopiraj</button>
@@ -11,7 +11,7 @@
   </div>
 
   <% if @party_scores.any? %>
-    <h2>Tvoje povprecno ujemanje s strankami</h2>
+    <h2>Tvoje povprečno ujemanje s strankami</h2>
     <div class="matches">
       <% @party_scores.each_with_index do |data, index| %>
         <div class="match-card">
@@ -32,7 +32,7 @@
     </div>
   <% end %>
 
-  <h2>Vse tvoje zelje</h2>
+  <h2>Vse tvoje želje</h2>
   <% if @wishes.any? %>
     <div class="recent-wishes">
       <% @wishes.each do |wish| %>
@@ -43,6 +43,6 @@
       <% end %>
     </div>
   <% else %>
-    <p class="subtitle">Se nimas nobene zelje. <%= link_to "Napisi svojo prvo zeljo!", root_path %></p>
+    <p class="subtitle">Še nimaš nobene želje. <%= link_to "Napiši svojo prvo željo!", root_path %></p>
   <% end %>
 </div>

@@ -1,17 +1,17 @@
 <div class="hero">
-  <h1>Kaj si zelis od drzave?</h1>
-  <p class="subtitle">Napisi svojo zeljo, umetna inteligenca ti bo predlagala, katere stranke so ti najblizje.</p>
+  <h1>Kaj si želiš od države?</h1>
+  <p class="subtitle">Napiši svojo željo, umetna inteligenca ti bo predlagala, katere stranke so ti najbližje.</p>
 
   <%= form_with url: wishes_path, method: :post, class: "wish-form" do |f| %>
-    <%= f.text_area :content, placeholder: "Npr: Zelim si boljse javno zdravstvo, nizje davke za mlade podjetnike in vec vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true %>
+    <%= f.text_area :content, placeholder: "Npr: Želim si boljše javno zdravstvo, nižje davke za mlade podjetnike in več vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true %>
     <%= f.submit "Analiziraj", class: "btn" %>
-    <p class="form-notice">Tvoja zelja bo javno objavljena in vidna vsem obiskovalcem.</p>
+    <p class="form-notice">Tvoja želja bo javno objavljena in vidna vsem obiskovalcem. <br/>V bazi ne hranimo tvojega IP-ja, če pa želite maksimalno anonimnost, lahko uporabite <%= link_to "Brave brskalnik", "https://brave.com", target: "_blank" %>, ki podpira proxy strežnik ali Tor omrežje.</p>
   <% end %>
 </div>
 
 <% if Wish.any? %>
   <div class="recent-section">
-    <h2>Zadnje zelje</h2>
+    <h2>Zadnje želje</h2>
     <div class="recent-wishes">
       <% Wish.left_joins(:votes).group(:id).order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC, wishes.created_at DESC")).limit(10).each do |wish| %>
         <div class="recent-wish-row">
