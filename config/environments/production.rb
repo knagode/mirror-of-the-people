@@ -88,5 +88,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # Redirect Heroku domain and non-www to canonical domain
-  config.middleware.insert_before ActionDispatch::SSL, "CanonicalDomainRedirect"
+  require_relative "../../app/middleware/canonical_domain_redirect"
+  config.middleware.insert_before ActionDispatch::SSL, CanonicalDomainRedirect
 end
