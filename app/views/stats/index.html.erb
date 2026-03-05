@@ -18,10 +18,7 @@
   <h2>Zadnje želje ljudi</h2>
   <div class="recent-wishes">
     <% @recent_wishes.each do |wish| %>
-      <%= link_to wish_path(wish), class: "recent-wish" do %>
-        <p><%= truncate(wish.content, length: 150) %></p>
-        <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
-      <% end %>
+      <%= render "wishes/wish", wish: wish %>
     <% end %>
   </div>
 </div>

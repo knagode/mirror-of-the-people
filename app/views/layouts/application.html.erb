@@ -27,14 +27,21 @@
       <div class="container">
         <%= link_to "ZrcaloLjudi", root_path, class: "logo" %>
         <div>
-          <% if current_profile %>
-            <%= link_to "Moje želje", profile_path(current_profile.token), class: "nav-link" %>
-          <% end %>
           <%= link_to "Statistika", statistika_path, class: "nav-link" %>
         </div>
       </div>
     </nav>
     <main class="container">
+      <% if current_profile %>
+        <div class="profile-banner">
+          <div class="profile-banner-text">
+            <p class="profile-banner-explain"><%= link_to "Tvoj profil", profile_path(current_profile.token) %> je shranjen v piškotku brskalnika, da lahko vidiš svoje želje in statistiko</p>
+          </div>
+          <div class="profile-banner-actions">
+            <%= link_to "Pozabi me", forget_profile_path, data: { turbo_method: :delete }, class: "btn btn-small btn-secondary" %>
+          </div>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
     <footer class="footer">

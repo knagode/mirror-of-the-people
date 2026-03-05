@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   end
   get "statistika", to: "stats#index"
   get "profil/:token", to: "profiles#show", as: :profile
+  delete "profil", to: "profiles#forget", as: :forget_profile
 end

@@ -23,11 +23,16 @@ class ApplicationController < ActionController::Base
   end
 
   def restore_profile_from_params
-    return if session[:profile_token].present?
-    return unless params[:pt].present?
+    if session[:profile_token].present?
+      cookies.permanent[:profile_token] = session[:profile_token] if cookies[:profile_token].blank?
+      return
+    end
 
-    profile = Profile.find_by(token: params[:pt])
-    session[:profile_token] = profile.token if profile
+    token = params[:pt].presence || cookies[:profile_token].presence
+    return unless token
+
+    profile = Profile.find_by(token: token)
+    save_profile_token(profile.token) if profile
   end
 
   def current_profile
@@ -41,7 +46,12 @@ class ApplicationController < ActionController::Base
     return current_profile if current_profile
 
     profile = Profile.create!
-    session[:profile_token] = profile.token
+    save_profile_token(profile.token)
     @current_profile = profile
+  end
+
+  def save_profile_token(token)
+    session[:profile_token] = token
+    cookies.permanent[:profile_token] = token
   end
 end

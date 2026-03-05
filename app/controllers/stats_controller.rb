@@ -27,9 +27,8 @@ class StatsController < ApplicationController
       }
     end.sort_by { |p| -p[:avg_score] }
 
-    @recent_wishes = Wish.left_joins(:votes)
-      .group(:id)
-      .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC, wishes.created_at DESC"))
+    @recent_wishes = Wish.includes(:comments, :votes)
+      .order(created_at: :desc)
       .limit(20)
   end
 end

@@ -77,6 +77,31 @@ body {
 .my-wishes h1 { margin-bottom: 8px; }
 .my-wishes h2 { margin: 32px 0 16px; }
 
+.profile-banner {
+  background: #fffbeb;
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.profile-banner p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.profile-banner-explain {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+.profile-banner-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 .profile-url-box {
   background: #eff6ff;
   border: 1px solid #bfdbfe;
@@ -233,6 +258,16 @@ body {
   transition: background 0.2s;
 }
 .btn:hover { background: var(--primary-dark); }
+.btn.btn-secondary {
+  background: #fff7ed;
+  color: #ea580c;
+  border: 1px solid #fdba74;
+  margin-top: 0;
+  white-space: nowrap;
+}
+.btn.btn-secondary:hover {
+  background: #ffedd5;
+}
 
 .recent-section {
   padding: 40px 0;
@@ -403,9 +438,24 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  width: 100%;
 }
 .recent-wish-row .recent-wish {
   flex: 1;
+  min-width: 0;
+}
+.wish-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 4px;
+}
+.wish-meta .time {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+.comment-count {
+  text-decoration: none;
 }
 
 .vote-buttons {

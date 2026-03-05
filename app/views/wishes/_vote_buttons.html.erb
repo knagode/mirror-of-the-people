@@ -1,10 +1,10 @@
-<% current_vote = current_profile ? wish.votes.find_by(profile: current_profile)&.value : nil %>
+<% current_vote = current_profile ? wish.votes.detect { |v| v.profile_id == current_profile.id }&.value : nil %>
 <%= turbo_frame_tag "vote_buttons_#{wish.id}" do %>
   <div class="vote-buttons">
     <%= button_to wish_vote_path(wish, value: 1), method: :post, class: "vote-btn #{current_vote == 1 ? 'vote-active-up' : ''}" do %>
       <span class="vote-arrow">&#9650;</span>
     <% end %>
-    <span class="vote-score"><%= wish.votes.sum(:value) %></span>
+    <span class="vote-score"><%= wish.votes.map(&:value).sum %></span>
     <%= button_to wish_vote_path(wish, value: -1), method: :post, class: "vote-btn #{current_vote == -1 ? 'vote-active-down' : ''}" do %>
       <span class="vote-arrow">&#9660;</span>
     <% end %>

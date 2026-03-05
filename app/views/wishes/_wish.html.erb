@@ -1,0 +1,10 @@
+<div class="recent-wish-row">
+  <%= render "wishes/vote_buttons", wish: wish %>
+  <%= link_to wish_path(wish), class: "recent-wish" do %>
+    <p><%= truncate(wish.content, length: 120) %></p>
+    <div class="wish-meta">
+      <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+      <span class="comment-count"><%= wish.comments.size %> <%= wish.comments.size == 1 ? "komentar" : "komentarjev" %></span>
+    </div>
+  <% end %>
+</div>
