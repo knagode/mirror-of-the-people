@@ -3,9 +3,10 @@ class WishesController < ApplicationController
   end
 
   def create
+    profile = find_or_create_profile!
     @wish = Wish.new(
       content: params[:content],
-      session_id: session.id.to_s
+      profile: profile
     )
 
     if @wish.save
@@ -18,18 +19,6 @@ class WishesController < ApplicationController
   def show
     @wish = Wish.find(params[:id])
     @matches = @wish.matches.includes(:party).order(score: :desc)
-  end
-
-  def mine
-    @wishes = Wish.where(session_id: session.id.to_s).order(created_at: :desc)
-
-    all_matches = Match.joins(:wish).where(wishes: { session_id: session.id.to_s })
-    @party_scores = Party.joins(:matches)
-      .merge(all_matches)
-      .group("parties.id", "parties.name")
-      .average(:score)
-      .map { |(id, name), avg| { id: id, name: name, avg_score: avg.round(1) } }
-      .sort_by { |p| -p[:avg_score] }
   end
 
   def matches

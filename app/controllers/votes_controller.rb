@@ -1,8 +1,9 @@
 class VotesController < ApplicationController
   def create
     @wish = Wish.find(params[:wish_id])
-    sid = session.id.to_s
-    vote = @wish.votes.find_by(session_id: sid)
+    profile = find_or_create_profile!
+
+    vote = @wish.votes.find_by(profile: profile)
 
     if vote
       if vote.value == params[:value].to_i
@@ -11,9 +12,9 @@ class VotesController < ApplicationController
         vote.update(value: params[:value].to_i)
       end
     else
-      @wish.votes.create(session_id: sid, value: params[:value].to_i)
+      @wish.votes.create(profile: profile, value: params[:value].to_i)
     end
 
-    render partial: "wishes/vote_buttons", locals: { wish: @wish, current_session_id: sid }
+    render partial: "wishes/vote_buttons", locals: { wish: @wish }
   end
 end

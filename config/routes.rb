@@ -17,5 +17,5 @@ Rails.application.routes.draw do
     resource :vote, only: [:create]
   end
   get "statistika", to: "stats#index"
-  get "moje-zelje", to: "wishes#mine", as: :my_wishes
+  get "profil/:token", to: "profiles#show", as: :profile
 end

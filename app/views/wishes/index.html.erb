@@ -15,7 +15,7 @@
     <div class="recent-wishes">
       <% Wish.left_joins(:votes).group(:id).order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC, wishes.created_at DESC")).limit(10).each do |wish| %>
         <div class="recent-wish-row">
-          <%= render "vote_buttons", wish: wish, current_session_id: session.id.to_s %>
+          <%= render "vote_buttons", wish: wish %>
           <%= link_to wish_path(wish), class: "recent-wish" do %>
             <p><%= truncate(wish.content, length: 120) %></p>
             <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>

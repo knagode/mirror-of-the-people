@@ -2,6 +2,14 @@
   <h1>Moje zelje</h1>
   <p class="subtitle">Tvoj skupni profil na podlagi <%= @wishes.count %> <%= @wishes.count == 1 ? "zelje" : "zelj" %>.</p>
 
+  <div class="profile-url-box">
+    <p>Shrani ta URL, da ohranis dostop do svojega profila. Z njim se lahko vrnes kadarkoli, tudi iz drugega brskalnika.</p>
+    <div class="profile-url-field">
+      <input type="text" value="<%= profile_url(@profile.token) %>" readonly class="profile-url-input" id="profile-url">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('profile-url').value).then(() => this.textContent = 'Kopirano!')" class="btn btn-small">Kopiraj</button>
+    </div>
+  </div>
+
   <% if @party_scores.any? %>
     <h2>Tvoje povprecno ujemanje s strankami</h2>
     <div class="matches">

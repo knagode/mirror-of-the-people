@@ -77,6 +77,38 @@ body {
 .my-wishes h1 { margin-bottom: 8px; }
 .my-wishes h2 { margin: 32px 0 16px; }
 
+.profile-url-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+}
+.profile-url-box p {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.profile-url-field {
+  display: flex;
+  gap: 8px;
+}
+.profile-url-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: monospace;
+  background: var(--card-bg);
+  color: var(--text);
+}
+.btn-small {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  margin-top: 0;
+}
+
 .hero {
   text-align: center;
   padding: 60px 0 40px;
