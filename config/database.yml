@@ -13,6 +13,4 @@ test:
 
 production:
   <<: *default
-  database: policy_mirror_production
-  username: policy_mirror
-  password: <%= ENV["UMETNAPOLITIKA_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
