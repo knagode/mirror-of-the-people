@@ -9,19 +9,55 @@
   <% end %>
 </div>
 
-<% if Wish.any? %>
-  <div class="recent-section">
-    <h2>Zadnje želje</h2>
-    <div class="recent-wishes">
-      <% Wish.left_joins(:votes).group(:id).order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC, wishes.created_at DESC")).limit(10).each do |wish| %>
-        <div class="recent-wish-row">
-          <%= render "vote_buttons", wish: wish %>
-          <%= link_to wish_path(wish), class: "recent-wish" do %>
-            <p><%= truncate(wish.content, length: 120) %></p>
-            <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+<% if @newest.any? %>
+  <div class="wishes-sections">
+    <div class="wishes-section">
+      <h2>Najnovejše želje</h2>
+      <div class="recent-wishes">
+        <% @newest.each do |wish| %>
+          <div class="recent-wish-row">
+            <%= render "vote_buttons", wish: wish %>
+            <%= link_to wish_path(wish), class: "recent-wish" do %>
+              <p><%= truncate(wish.content, length: 120) %></p>
+              <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @most_upvoted.any? %>
+      <div class="wishes-section">
+        <h2>Najbolj priljubljene želje</h2>
+        <div class="recent-wishes">
+          <% @most_upvoted.each do |wish| %>
+            <div class="recent-wish-row">
+              <%= render "vote_buttons", wish: wish %>
+              <%= link_to wish_path(wish), class: "recent-wish" do %>
+                <p><%= truncate(wish.content, length: 120) %></p>
+                <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+              <% end %>
+            </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+
+    <% if @recently_upvoted.any? %>
+      <div class="wishes-section">
+        <h2>Nedavno priljubljene želje</h2>
+        <div class="recent-wishes">
+          <% @recently_upvoted.each do |wish| %>
+            <div class="recent-wish-row">
+              <%= render "vote_buttons", wish: wish %>
+              <%= link_to wish_path(wish), class: "recent-wish" do %>
+                <p><%= truncate(wish.content, length: 120) %></p>
+                <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

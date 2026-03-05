@@ -1,5 +1,21 @@
 class WishesController < ApplicationController
   def index
+    @newest = Wish.order(created_at: :desc).limit(20)
+
+    @most_upvoted = Wish.left_joins(:votes)
+      .group(:id)
+      .having("COALESCE(SUM(votes.value), 0) > 0")
+      .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
+      .limit(20)
+
+    @recently_upvoted = Wish.where(
+      id: Vote.where("votes.created_at > ?", 7.days.ago)
+              .where(value: 1)
+              .select(:wish_id)
+    ).left_joins(:votes)
+      .group(:id)
+      .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
+      .limit(20)
   end
 
   def create

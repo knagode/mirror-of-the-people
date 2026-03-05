@@ -135,6 +135,18 @@ body {
   font-size: 0.85rem;
   margin-top: 8px;
 }
+.form-notice a { color: var(--primary); }
+
+.wishes-sections {
+  padding: 20px 0 40px;
+}
+
+.wishes-section {
+  margin-bottom: 40px;
+}
+.wishes-section h2 {
+  margin-bottom: 16px;
+}
 
 .wish-input {
   width: 100%;
