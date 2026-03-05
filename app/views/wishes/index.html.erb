@@ -5,6 +5,7 @@
   <%= form_with url: wishes_path, method: :post, class: "wish-form" do |f| %>
     <%= f.text_area :content, placeholder: "Npr: Zelim si boljse javno zdravstvo, nizje davke za mlade podjetnike in vec vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true %>
     <%= f.submit "Analiziraj", class: "btn" %>
+    <p class="form-notice">Tvoja zelja bo javno objavljena in vidna vsem obiskovalcem.</p>
   <% end %>
 </div>
 
