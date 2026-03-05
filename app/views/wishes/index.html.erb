@@ -59,5 +59,22 @@
         </div>
       </div>
     <% end %>
+
+    <% if @recently_commented.any? %>
+      <div class="wishes-section">
+        <h2>Nedavno komentirane želje</h2>
+        <div class="recent-wishes">
+          <% @recently_commented.each do |wish| %>
+            <div class="recent-wish-row">
+              <%= render "vote_buttons", wish: wish %>
+              <%= link_to wish_path(wish, anchor: "comments"), class: "recent-wish" do %>
+                <p><%= truncate(wish.content, length: 120) %></p>
+                <span class="comment-count"><%= wish.comments.count %> <%= wish.comments.count == 1 ? "komentar" : "komentarjev" %></span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>

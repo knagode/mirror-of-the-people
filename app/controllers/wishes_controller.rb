@@ -16,6 +16,11 @@ class WishesController < ApplicationController
       .group(:id)
       .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
       .limit(20)
+
+    @recently_commented = Wish.joins(:comments)
+      .group(:id)
+      .order(Arel.sql("MAX(comments.created_at) DESC"))
+      .limit(5)
   end
 
   def create

@@ -158,6 +158,12 @@ body {
   color: var(--text-light);
 }
 
+.comment-count {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
 .hero {
   text-align: center;
   padding: 60px 0 40px;
