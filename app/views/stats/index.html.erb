@@ -1,6 +1,14 @@
 <div class="stats">
-  <h1>Statistika</h1>
-  <p class="subtitle">Kaj si ljudje želijo? Skupaj je bilo podanih <strong><%= @total_wishes %></strong> želj.</p>
+  <h1>Statistika in kaj si ljudje želijo?</h1>
+  <p class="subtitle">Skupaj je bilo podanih <strong><%= @total_wishes %></strong> želj.</p>
+
+  <% if @ai_summary %>
+    <div class="ai-summary-box">
+      <h2>Zadnji povzetek želja z umetno inteligenco</h2>
+      <p class="ai-summary-content"><%= simple_format(@ai_summary.content) %></p>
+      <p class="ai-summary-meta">Povzetek je samodejno generiran na podlagi <%= @ai_summary.wishes_count %> želj. Zadnja posodobitev: <%= @ai_summary.created_at.strftime("%-d.%-m.%Y") %>.</p>
+    </div>
+  <% end %>
 
   <h2>Povprečno ujemanje strank</h2>
   <div class="stats-cards">

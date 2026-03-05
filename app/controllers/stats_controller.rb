@@ -27,6 +27,8 @@ class StatsController < ApplicationController
       }
     end.sort_by { |p| -p[:avg_score] }
 
+    @ai_summary = AiSummary.order(created_at: :desc).first
+
     @recent_wishes = Wish.includes(:comments, :votes)
       .order(created_at: :desc)
       .limit(20)
