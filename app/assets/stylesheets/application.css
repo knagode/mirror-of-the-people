@@ -109,6 +109,55 @@ body {
   margin-top: 0;
 }
 
+.comments-section {
+  margin: 32px 0;
+}
+.comments-section h2 {
+  margin-bottom: 16px;
+}
+
+.comment-form {
+  margin-bottom: 20px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+.comment-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-card {
+  background: var(--card-bg);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.comment-content {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.comment-time {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
 .hero {
   text-align: center;
   padding: 60px 0 40px;

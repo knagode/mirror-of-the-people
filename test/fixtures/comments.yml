@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wish: one
+  profile: one
+  content: MyText
+
+two:
+  wish: two
+  profile: two
+  content: MyText

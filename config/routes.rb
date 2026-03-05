@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :matches
     end
     resource :vote, only: [:create]
+    resources :comments, only: [:create]
   end
   get "statistika", to: "stats#index"
   get "profil/:token", to: "profiles#show", as: :profile

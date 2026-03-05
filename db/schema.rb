@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_05_115321) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_05_133855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "wish_id", null: false
+    t.bigint "profile_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_comments_on_profile_id"
+    t.index ["wish_id"], name: "index_comments_on_wish_id"
+  end
 
   create_table "matches", force: :cascade do |t|
     t.integer "wish_id", null: false
@@ -59,6 +69,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_05_115321) do
     t.index ["profile_id"], name: "index_wishes_on_profile_id"
   end
 
+  add_foreign_key "comments", "profiles"
+  add_foreign_key "comments", "wishes"
   add_foreign_key "matches", "parties"
   add_foreign_key "matches", "wishes"
   add_foreign_key "votes", "profiles"

@@ -16,6 +16,24 @@
     </div>
   <% end %>
 
+  <div id="comments" class="comments-section">
+    <h2>Komentarji (<%= @wish.comments.count %>)</h2>
+
+    <%= form_with url: wish_comments_path(@wish), method: :post, class: "comment-form" do |f| %>
+      <%= f.text_area :content, placeholder: "Napiši komentar...", rows: 3, class: "comment-input", required: true, name: "comment[content]" %>
+      <%= f.submit "Komentiraj", class: "btn btn-small" %>
+    <% end %>
+
+    <div class="comments-list">
+      <% @wish.comments.order(created_at: :desc).each do |comment| %>
+        <div class="comment-card">
+          <p class="comment-content"><%= comment.content %></p>
+          <span class="comment-time"><%= time_ago_in_words(comment.created_at) %> nazaj</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= link_to "Nova želja", root_path, class: "btn" %>
   </div>
