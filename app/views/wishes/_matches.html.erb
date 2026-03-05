@@ -1,0 +1,24 @@
+<%= turbo_frame_tag "matches" do %>
+  <h2>Ujemanje s strankami</h2>
+
+  <div class="matches">
+    <% matches.each_with_index do |match, index| %>
+      <div class="match-card">
+        <div class="match-header">
+          <div class="match-rank">#<%= index + 1 %></div>
+          <div class="match-info">
+            <h3><%= match.party.name %></h3>
+            <p class="party-description"><%= match.party.description %></p>
+          </div>
+          <div class="match-score <%= score_class(match.score) %>">
+            <%= match.score.round(0) %>%
+          </div>
+        </div>
+        <div class="match-bar-container">
+          <div class="match-bar <%= score_class(match.score) %>" style="width: <%= match.score %>%"></div>
+        </div>
+        <p class="match-explanation"><%= match.explanation %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

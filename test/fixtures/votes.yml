@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wish: one
+  session_id: MyString
+  value: 1
+
+two:
+  wish: two
+  session_id: MyString
+  value: 1

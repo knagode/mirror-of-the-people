@@ -1,0 +1,26 @@
+<div class="hero">
+  <h1>Kaj si zelis od drzave?</h1>
+  <p class="subtitle">Napisi svojo zeljo, umetna inteligenca ti bo predlagala, katere stranke so ti najblizje.</p>
+
+  <%= form_with url: wishes_path, method: :post, class: "wish-form" do |f| %>
+    <%= f.text_area :content, placeholder: "Npr: Zelim si boljse javno zdravstvo, nizje davke za mlade podjetnike in vec vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true %>
+    <%= f.submit "Analiziraj", class: "btn" %>
+  <% end %>
+</div>
+
+<% if Wish.any? %>
+  <div class="recent-section">
+    <h2>Zadnje zelje</h2>
+    <div class="recent-wishes">
+      <% Wish.left_joins(:votes).group(:id).order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC, wishes.created_at DESC")).limit(10).each do |wish| %>
+        <div class="recent-wish-row">
+          <%= render "vote_buttons", wish: wish, current_session_id: session.id.to_s %>
+          <%= link_to wish_path(wish), class: "recent-wish" do %>
+            <p><%= truncate(wish.content, length: 120) %></p>
+            <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<div class="my-wishes">
+  <h1>Moje zelje</h1>
+  <p class="subtitle">Tvoj skupni profil na podlagi <%= @wishes.count %> <%= @wishes.count == 1 ? "zelje" : "zelj" %>.</p>
+
+  <% if @party_scores.any? %>
+    <h2>Tvoje povprecno ujemanje s strankami</h2>
+    <div class="matches">
+      <% @party_scores.each_with_index do |data, index| %>
+        <div class="match-card">
+          <div class="match-header">
+            <div class="match-rank">#<%= index + 1 %></div>
+            <div class="match-info">
+              <h3><%= data[:name] %></h3>
+            </div>
+            <div class="match-score <%= score_class(data[:avg_score]) %>">
+              <%= data[:avg_score] %>%
+            </div>
+          </div>
+          <div class="match-bar-container">
+            <div class="match-bar <%= score_class(data[:avg_score]) %>" style="width: <%= data[:avg_score] %>%"></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h2>Vse tvoje zelje</h2>
+  <% if @wishes.any? %>
+    <div class="recent-wishes">
+      <% @wishes.each do |wish| %>
+        <%= link_to wish_path(wish), class: "recent-wish" do %>
+          <p><%= truncate(wish.content, length: 150) %></p>
+          <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="subtitle">Se nimas nobene zelje. <%= link_to "Napisi svojo prvo zeljo!", root_path %></p>
+  <% end %>
+</div>

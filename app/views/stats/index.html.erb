@@ -1,0 +1,27 @@
+<div class="stats">
+  <h1>Statistika</h1>
+  <p class="subtitle">Kaj si ljudje zelijo? Skupaj je bilo podanih <strong><%= @total_wishes %></strong> zelj.</p>
+
+  <h2>Povprecno ujemanje strank</h2>
+  <div class="stats-cards">
+    <% @parties.each do |data| %>
+      <div class="stat-card">
+        <h3><%= data[:party].name %></h3>
+        <div class="stat-score <%= score_class(data[:avg_score]) %>">
+          <%= data[:avg_score] %>%
+        </div>
+        <p class="stat-detail"><%= data[:match_count] %> ujemanj</p>
+      </div>
+    <% end %>
+  </div>
+
+  <h2>Zadnje zelje ljudi</h2>
+  <div class="recent-wishes">
+    <% @recent_wishes.each do |wish| %>
+      <%= link_to wish_path(wish), class: "recent-wish" do %>
+        <p><%= truncate(wish.content, length: 150) %></p>
+        <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

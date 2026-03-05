@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: policy_mirror_development
+
+test:
+  <<: *default
+  database: policy_mirror_test
+
+production:
+  <<: *default
+  database: policy_mirror_production
+  username: policy_mirror
+  password: <%= ENV["UMETNAPOLITIKA_DATABASE_PASSWORD"] %>

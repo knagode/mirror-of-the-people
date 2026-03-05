@@ -1,0 +1,12 @@
+<% current_vote = wish.votes.find_by(session_id: current_session_id)&.value %>
+<%= turbo_frame_tag "vote_buttons_#{wish.id}" do %>
+  <div class="vote-buttons">
+    <%= button_to wish_vote_path(wish, value: 1), method: :post, class: "vote-btn #{current_vote == 1 ? 'vote-active-up' : ''}" do %>
+      <span class="vote-arrow">&#9650;</span>
+    <% end %>
+    <span class="vote-score"><%= wish.votes.sum(:value) %></span>
+    <%= button_to wish_vote_path(wish, value: -1), method: :post, class: "vote-btn #{current_vote == -1 ? 'vote-active-down' : ''}" do %>
+      <span class="vote-arrow">&#9660;</span>
+    <% end %>
+  </div>
+<% end %>
