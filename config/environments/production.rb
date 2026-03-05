@@ -86,4 +86,7 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Redirect Heroku domain and non-www to canonical domain
+  config.middleware.insert_before ActionDispatch::SSL, "CanonicalDomainRedirect"
 end
