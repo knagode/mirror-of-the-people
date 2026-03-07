@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   get "profil/:token", to: "profiles#show", as: :profile
   delete "profil", to: "profiles#forget", as: :forget_profile
   get "o-projektu", to: "pages#about", as: :about
+  get "prompt", to: "pages#prompt", as: :prompt
 end

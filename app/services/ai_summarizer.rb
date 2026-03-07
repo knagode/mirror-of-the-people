@@ -14,14 +14,24 @@ class AiSummarizer
     summary
   end
 
+  def prompt
+    wishes = Wish.all
+    wishes_json = wishes_with_upvotes(wishes)
+    build_prompt(wishes_json, wishes.count)
+  end
+
   private
 
-  def generate_summary(wishes)
-    wishes_json = wishes
+  def wishes_with_upvotes(wishes)
+    wishes
       .left_joins(:votes)
       .group(:id)
       .select("wishes.id, wishes.content, COALESCE(SUM(votes.value), 0) AS upvotes")
       .map { |w| { content: w.content, upvotes: w.upvotes.to_i } }
+  end
+
+  def generate_summary(wishes)
+    wishes_json = wishes_with_upvotes(wishes)
 
     response = client.messages.create(
       model: "claude-sonnet-4-20250514",
