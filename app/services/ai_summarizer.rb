@@ -2,15 +2,16 @@ class AiSummarizer
   MIN_WISHES = Rails.env.development? ? 2 : 50
 
   def call
-    wishes = Wish.all
-    return if wishes.count < MIN_WISHES
+    unprocessed_wishes = Wish.where(ai_summary_id: nil)
+    return if unprocessed_wishes.count < MIN_WISHES
 
+    wishes = Wish.all
     summary = AiSummary.create!(
       content: generate_summary(wishes),
       wishes_count: wishes.count
     )
 
-    wishes.update_all(ai_summary_id: summary.id)
+    unprocessed_wishes.update_all(ai_summary_id: summary.id)
     summary
   end
 
