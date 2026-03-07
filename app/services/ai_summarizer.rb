@@ -61,6 +61,15 @@ class AiSummarizer
       Upoštevaj število upvotes - želje z več glasovi so bolj relevantne.
       Ignoriraj neresne, žaljive želje ali očitne šale (npr. provokativne želje, ki jih je verjetno napisala ena oseba). Osredotoči se na legitimne želje državljanov.
 
+      Ignoriraj želje, ki:
+        - vsebujejo vulgarno ali seksualno vsebino
+        - so zapisane kot šala, meme ali provokacija
+        - imajo zelo kratko vsebino (1–5 besede) in poleg tega potencialno provokativno. Če je želja kratka in provokativna, naj bo dobro utemeljena, preden jo vključiš v analizo
+        - niso povezane z javnimi politikami ali delovanjem države
+        - so očitno absurdne ali provokativne
+
+      Analizo naredi samo na preostalih legitimnih željah državljanov.
+
       Piši v lepem, berljivem formatu. Uporabi kratke odstavke. Piši kot članek za širšo publiko. Med 100 in 300 besed.
       Vrni osnovni HTML (uporabi <p>, <strong>, <br> značke). Ne uporabljaj markdowna.
     PROMPT
