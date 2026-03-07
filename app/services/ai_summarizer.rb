@@ -2,7 +2,7 @@ class AiSummarizer
   MIN_WISHES = Rails.env.development? ? 2 : 50
 
   def call
-    wishes = Wish.where(ai_summary_id: nil)
+    wishes = Wish.all
     return if wishes.count < MIN_WISHES
 
     summary = AiSummary.create!(
