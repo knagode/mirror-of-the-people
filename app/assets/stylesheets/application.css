@@ -406,6 +406,12 @@ body {
   padding: 20px 0;
 }
 
+.about { padding: 40px 0; }
+.about h1 { margin-bottom: 16px; }
+.about h2 { margin: 32px 0 12px; }
+.about p { margin-bottom: 12px; line-height: 1.7; }
+.about ol { margin: 12px 0; padding-left: 24px; line-height: 1.8; }
+
 .stats { padding: 40px 0; }
 .stats h1 { margin-bottom: 8px; }
 .stats h2 { margin: 32px 0 16px; }

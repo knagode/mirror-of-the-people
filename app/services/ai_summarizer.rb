@@ -17,9 +17,11 @@ class AiSummarizer
   private
 
   def generate_summary(wishes)
-    wishes_text = wishes.pluck(:content).map.with_index(1) do |content, i|
-      "#{i}. #{content}"
-    end.join("\n")
+    wishes_json = wishes
+      .left_joins(:votes)
+      .group(:id)
+      .select("wishes.id, wishes.content, COALESCE(SUM(votes.value), 0) AS upvotes")
+      .map { |w| { content: w.content, upvotes: w.upvotes.to_i } }
 
     response = client.messages.create(
       model: "claude-sonnet-4-20250514",
@@ -27,7 +29,7 @@ class AiSummarizer
       messages: [
         {
           role: "user",
-          content: build_prompt(wishes_text, wishes.count)
+          content: build_prompt(wishes_json, wishes.count)
         }
       ]
     )
@@ -35,18 +37,22 @@ class AiSummarizer
     response.content.first.text
   end
 
-  def build_prompt(wishes_text, count)
+  def build_prompt(wishes_json, count)
     <<~PROMPT
-      Si analitični novinar v Sloveniji. Spodaj je #{count} želj, ki so jih ljudje zapisali na platformi ZrcaloLjudi, kjer povedo, kaj si želijo od države.
+      Si analitični novinar v Sloveniji. Spodaj je #{count} želj v JSON formatu, ki so jih ljudje zapisali na platformi ZrcaloLjudi, kjer povedo, kaj si želijo od države. Polje "upvotes" pove, koliko ljudi se strinja z željo.
 
-      #{wishes_text}
+      #{wishes_json.to_json}
 
       Naredi povzetek v slovenščini. Povzetek naj vsebuje:
       1. Glavne teme in trende - kaj si ljudje najbolj želijo
       2. Pogosto omenjene teme
       3. Morebitne zanimive ali presenetljive želje
 
-      Piši v lepem, berljivem formatu. Izloči žaljive želje ali šale. Uporabi kratke odstavke. Ne uporabljaj markdowna ali posebnih znakov. Piši kot članek za širšo publiko. Med 100 in 300 besed.
+      Upoštevaj število upvotes - želje z več glasovi so bolj relevantne.
+      Ignoriraj neresne, žaljive želje ali očitne šale (npr. provokativne želje, ki jih je verjetno napisala ena oseba). Osredotoči se na legitimne želje državljanov.
+
+      Piši v lepem, berljivem formatu. Uporabi kratke odstavke. Piši kot članek za širšo publiko. Med 100 in 300 besed.
+      Vrni osnovni HTML (uporabi <p>, <strong>, <br> značke). Ne uporabljaj markdowna.
     PROMPT
   end
 
