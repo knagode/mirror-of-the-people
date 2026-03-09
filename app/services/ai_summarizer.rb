@@ -48,11 +48,19 @@ class AiSummarizer
     response.content.first.text
   end
 
+  def parties_text
+    Party.all.map { |p| "#{p.name}:\n#{p.program}" }.join("\n---\n")
+  end
+
   def build_prompt(wishes_json, count)
     <<~PROMPT
       Si analitični novinar v Sloveniji. Spodaj je #{count} želj v JSON formatu, ki so jih ljudje zapisali na platformi ZrcaloLjudi, kjer povedo, kaj si želijo od države. Polje "upvotes" pove, koliko ljudi se strinja z željo.
 
       #{wishes_json.to_json}
+
+      Tu so programi političnih strank v Sloveniji:
+
+      #{parties_text}
 
       Naredi povzetek v slovenščini. Povzetek naj vsebuje:
       1. Glavne teme in trende - kaj si ljudje najbolj želijo
@@ -71,8 +79,19 @@ class AiSummarizer
 
       Analizo naredi samo na preostalih legitimnih željah državljanov.
 
-      Piši v lepem, berljivem formatu. Uporabi kratke odstavke. Piši kot članek za širšo publiko. Med 100 in 300 besed.
-      Vrni osnovni HTML (uporabi <p>, <strong>, <br> značke). Ne uporabljaj markdowna.
+      Povzetek naj ima dva dela:
+
+      1. del: Povzetek želja (med 100 in 300 besed)
+      Kaj si ljudje želijo, glavne teme, trendi, zanimive želje.
+
+      2. del: 10 priporočil za državo
+      Na podlagi želja državljanov napiši 10 konkretnih ukrepov, ki bi jih država lahko izvedla, da bi izboljšala stanje. Oštevilči jih od 1 do 10. Ukrepi naj bodo realistični in izvedljivi, ne preveč splošni. Vsak ukrep naj ima kratek naslov in eno poved obrazložitve.
+
+      3. del: Ujemanje strank s priporočili
+      Na podlagi zgornjih 10 priporočil in programov strank oceni, katere stranke se najbolj ujemajo s predlaganimi ukrepi. Razvrsti stranke od najbolj do najmanj ujemajoče. Za vsako stranko na kratko pojasni, zakaj se ujema ali ne.
+
+      Piši v lepem, berljivem formatu. Uporabi kratke odstavke. Piši kot članek za širšo publiko.
+      Vrni osnovni HTML (uporabi <p>, <strong>, <br>, <ol>, <li> značke). Ne uporabljaj markdowna.
     PROMPT
   end
 
