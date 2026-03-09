@@ -315,7 +315,6 @@ body {
   color: var(--text);
   transition: border-color 0.2s;
 }
-.recent-wish:hover { border-color: var(--primary); }
 .recent-wish .time {
   font-size: 0.85rem;
   color: var(--text-light);
@@ -425,7 +424,14 @@ body {
   padding: 2px 8px;
   border-radius: 12px;
   font-weight: 500;
+  text-decoration: none;
 }
+.tag:hover {
+  background: #c7d2fe;
+}
+
+.tag-page { padding: 40px 0; }
+.tag-page h1 { margin-bottom: 8px; }
 
 .about { padding: 40px 0; }
 .about h1 { margin-bottom: 16px; }
@@ -496,8 +502,9 @@ body {
 }
 .wish-meta {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 4px;
 }
 .wish-meta .time {
@@ -506,6 +513,16 @@ body {
 }
 .comment-count {
   text-decoration: none;
+}
+.wish-more {
+  font-size: 0.85rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: auto;
+}
+.wish-more:hover {
+  text-decoration: underline;
 }
 
 .vote-buttons {

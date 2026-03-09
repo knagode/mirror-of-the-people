@@ -1,17 +1,16 @@
 <div class="recent-wish-row">
   <%= render "wishes/vote_buttons", wish: wish %>
-  <%= link_to wish_path(wish), class: "recent-wish" do %>
+  <div class="recent-wish">
     <p><%= truncate(wish.content, length: 120) %></p>
     <div class="wish-meta">
       <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
       <span class="comment-count"><%= wish.comments.size %> <%= wish.comments.size == 1 ? "komentar" : "komentarjev" %></span>
       <% if wish.tag_list.any? %>
-        <span class="wish-tags-inline">
-          <% wish.tag_list.each do |tag| %>
-            <span class="tag"><%= tag %></span>
-          <% end %>
-        </span>
+        <% wish.tag_list.each do |tag| %>
+          <%= link_to "##{tag}", tag_path(tag), class: "tag" %>
+        <% end %>
       <% end %>
+      <%= link_to "Več →", wish_path(wish), class: "wish-more" %>
     </div>
-  <% end %>
+  </div>
 </div>

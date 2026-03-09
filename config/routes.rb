@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "statistika", to: "stats#index"
   get "profil/:token", to: "profiles#show", as: :profile
   delete "profil", to: "profiles#forget", as: :forget_profile
+  get "oznaka/:tag", to: "tags#show", as: :tag
   get "o-projektu", to: "pages#about", as: :about
   get "prompt", to: "pages#prompt", as: :prompt
 end

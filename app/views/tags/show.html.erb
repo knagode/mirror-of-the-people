@@ -1,0 +1,14 @@
+<div class="tag-page">
+  <h1><%= @tag.name.humanize %></h1>
+  <% if @tag.category.present? %>
+    <p class="subtitle"><%= @tag.category %></p>
+  <% end %>
+
+  <p class="subtitle"><%= @wishes.count %> <%= @wishes.count == 1 ? "želja" : "želj" %> s to oznako</p>
+
+  <div class="recent-wishes">
+    <% @wishes.each do |wish| %>
+      <%= render "wishes/wish", wish: wish %>
+    <% end %>
+  </div>
+</div>
