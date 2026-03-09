@@ -2,7 +2,7 @@
 
 Povej kaj si želiš od države, umetna inteligenca ti pove katere stranke so ti najbližje.
 
-**Demo:** [policymirror.herokuapp.com](https://policymirror-52b9ce0d1595.herokuapp.com)
+**Demo:** [zrcaloljudi.com](https://www.zrcaloljudi.com)
 
 ## Kako deluje?
 
