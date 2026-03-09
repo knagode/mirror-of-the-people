@@ -418,16 +418,12 @@ body {
 }
 .tag {
   display: inline-block;
-  background: #e0e7ff;
-  color: #4338ca;
+  color: var(--text-light);
   font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-weight: 500;
   text-decoration: none;
 }
 .tag:hover {
-  background: #c7d2fe;
+  color: var(--primary);
 }
 
 .tag-page { padding: 40px 0; }

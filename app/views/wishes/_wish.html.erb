@@ -4,7 +4,7 @@
     <p><%= truncate(wish.content, length: 120) %></p>
     <div class="wish-meta">
       <span class="time"><%= time_ago_in_words(wish.created_at) %> nazaj</span>
-      <span class="comment-count"><%= wish.comments.size %> <%= wish.comments.size == 1 ? "komentar" : "komentarjev" %></span>
+      <%= link_to wish_path(wish, anchor: "comments"), class: "comment-count" do %><%= wish.comments.size %> <%= wish.comments.size == 1 ? "komentar" : "komentarjev" %><% end %>
       <% if wish.tag_list.any? %>
         <% wish.tag_list.each do |tag| %>
           <%= link_to "##{tag}", tag_path(tag), class: "tag" %>
