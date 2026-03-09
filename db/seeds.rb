@@ -209,10 +209,10 @@ puts "Ustvarjenih #{Party.count} strank."
 tag_categories = {
   "Človekove pravice in bioetika" => %w[splav evtanazija pravice_lgbt istospolne_poroke telesna_avtonomija pravice_zensk],
   "Zdravstvo" => %w[javno_zdravstvo cakalne_dobe place_zdravnikov organizacija_zdravstva cepljenje],
-  "Davki in gospodarstvo" => %w[nizji_davki razbremenitev_plac podjetnistvo davki_na_kapital davki_na_nepremicnine privatizacija_podjetij],
+  "Davki in gospodarstvo" => %w[nizji_davki razbremenitev_plac podjetnistvo davki_na_kapital davki_na_nepremicnine privatizacija_podjetij kriptovalute],
   "Socialna politika" => %w[socialni_transferji pokojnine podpora_druzinam otroci_in_vrtci],
   "Stanovanja" => %w[stanovanja_za_mlade cene_nepremicnin najemni_trg],
-  "Migracije in varnost" => %w[migracije azilna_politika varnost zveza_nato],
+  "Migracije in varnost" => %w[migracije azilna_politika varnost zveza_nato obramba],
   "Država in uprava" => %w[manj_birokracije ucinkovita_javna_uprava proti_korupciji digitalizacija_drzave],
   "Infrastruktura" => %w[javni_prevoz zeleznice ceste],
   "Okolje" => %w[okolje energetika jedrska_energija samooskrba],
