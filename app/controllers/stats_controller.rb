@@ -32,5 +32,11 @@ class StatsController < ApplicationController
     @recent_wishes = Wish.includes(:comments, :votes)
       .order(created_at: :desc)
       .limit(20)
+
+    @tags = ActsAsTaggableOn::Tag
+      .joins(:taggings)
+      .group("tags.id")
+      .select("tags.*, COUNT(taggings.id) AS wish_count")
+      .order("wish_count DESC")
   end
 end

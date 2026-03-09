@@ -29,4 +29,15 @@
       <%= render "wishes/wish", wish: wish %>
     <% end %>
   </div>
+
+  <% if @tags.any? %>
+    <h2>Teme</h2>
+    <div class="tag-cloud">
+      <% max_count = @tags.map(&:wish_count).max.to_f %>
+      <% @tags.each do |tag| %>
+        <% size = 0.75 + (tag.wish_count / max_count) * 1.25 %>
+        <%= link_to "##{tag.name}", tag_path(tag.name), class: "tag-cloud-item", style: "font-size: #{size}rem" %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

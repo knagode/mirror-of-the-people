@@ -426,6 +426,21 @@ body {
   color: var(--primary);
 }
 
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+.tag-cloud-item {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.tag-cloud-item:hover {
+  color: var(--primary);
+}
+
 .tag-page { padding: 40px 0; }
 .tag-page h1 { margin-bottom: 8px; }
 
