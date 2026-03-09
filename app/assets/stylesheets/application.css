@@ -275,9 +275,37 @@ body {
   color: #1e1b4b;
   line-height: 1.7;
 }
+.ai-summary-content ol {
+  padding-left: 24px;
+  margin: 12px 0;
+}
+.ai-summary-content li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.ai-recommendations {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border-color: #6ee7b7;
+}
+.ai-recommendations h2 {
+  color: #065f46;
+}
+.ai-recommendations .ai-summary-content {
+  color: #064e3b;
+}
+.ai-party-matches {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+}
+.ai-party-matches h2 {
+  color: #92400e;
+}
+.ai-party-matches .ai-summary-content {
+  color: #78350f;
+}
 .ai-summary-meta {
   font-size: 0.8rem;
-  color: #6366f1;
+  color: var(--text-light);
   margin-top: 16px;
   font-style: italic;
 }

@@ -6,8 +6,11 @@ class AiSummarizer
     return if unprocessed_wishes.count < MIN_WISHES
 
     wishes = Wish.all
+    sections = generate_summary(wishes)
     summary = AiSummary.create!(
-      content: generate_summary(wishes),
+      content: sections["summary"],
+      recommendations: sections["recommendations"],
+      party_matches: sections["party_matches"],
       wishes_count: wishes.count
     )
 
@@ -45,7 +48,7 @@ class AiSummarizer
       ]
     )
 
-    response.content.first.text
+    JSON.parse(response.content.first.text)
   end
 
   def parties_text
@@ -79,19 +82,23 @@ class AiSummarizer
 
       Analizo naredi samo na preostalih legitimnih željah državljanov.
 
-      Povzetek naj ima dva dela:
+      Odgovori IZKLJUČNO v JSON formatu (brez markdown, brez ```):
+      {
+        "summary": "HTML povzetek želja",
+        "recommendations": "HTML 10 priporočil",
+        "party_matches": "HTML ujemanje strank"
+      }
 
-      1. del: Povzetek želja (med 100 in 300 besed)
-      Kaj si ljudje želijo, glavne teme, trendi, zanimive želje.
+      Za "summary" (med 100 in 300 besed):
+      Kaj si ljudje želijo, glavne teme, trendi, zanimive želje. Uporabi <p> in <strong>.
 
-      2. del: 10 priporočil za državo
-      Na podlagi želja državljanov napiši 10 konkretnih ukrepov, ki bi jih država lahko izvedla, da bi izboljšala stanje. Oštevilči jih od 1 do 10. Ukrepi naj bodo realistični in izvedljivi, ne preveč splošni. Vsak ukrep naj ima kratek naslov in eno poved obrazložitve.
+      Za "recommendations":
+      10 konkretnih ukrepov, ki bi jih država lahko izvedla. Ukrepi naj bodo realistični in izvedljivi. Vsak ukrep naj ima kratek naslov v <strong> in eno poved obrazložitve. Uporabi <ol> in <li>.
 
-      3. del: Ujemanje strank s priporočili
-      Na podlagi zgornjih 10 priporočil in programov strank oceni, katere stranke se najbolj ujemajo s predlaganimi ukrepi. Razvrsti stranke od najbolj do najmanj ujemajoče. Za vsako stranko na kratko pojasni, zakaj se ujema ali ne.
+      Za "party_matches":
+      Oceni, katere stranke se najbolj ujemajo s predlaganimi ukrepi. Razvrsti od najbolj do najmanj ujemajoče. Za vsako stranko na kratko pojasni zakaj. Uporabi <ol> in <li> z imenom stranke v <strong>.
 
-      Piši v lepem, berljivem formatu. Uporabi kratke odstavke. Piši kot članek za širšo publiko.
-      Vrni osnovni HTML (uporabi <p>, <strong>, <br>, <ol>, <li> značke). Ne uporabljaj markdowna.
+      Piši v lepem, berljivem formatu kot članek za širšo publiko. Uporabi samo <p>, <strong>, <ol>, <li> značke.
     PROMPT
   end
 

@@ -15,10 +15,14 @@ namespace :ai do
     abort "No wishes found" if wishes.count == 0
 
     summarizer = AiSummarizer.new
-    wishes_json = summarizer.send(:wishes_with_upvotes, wishes)
-    content = summarizer.send(:generate_summary, wishes)
+    sections = summarizer.send(:generate_summary, wishes)
 
-    summary = AiSummary.create!(content: content, wishes_count: wishes.count)
+    summary = AiSummary.create!(
+      content: sections["summary"],
+      recommendations: sections["recommendations"],
+      party_matches: sections["party_matches"],
+      wishes_count: wishes.count
+    )
     Wish.where(ai_summary_id: nil).update_all(ai_summary_id: summary.id)
 
     puts "Created AI summary ##{summary.id} from #{summary.wishes_count} wishes"
