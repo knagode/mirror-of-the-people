@@ -205,3 +205,30 @@ parties.each do |attrs|
 end
 
 puts "Ustvarjenih #{Party.count} strank."
+
+tag_categories = {
+  "Človekove pravice in bioetika" => %w[splav evtanazija pravice_lgbt istospolne_poroke telesna_avtonomija pravice_zensk],
+  "Zdravstvo" => %w[javno_zdravstvo cakalne_dobe place_zdravnikov organizacija_zdravstva cepljenje],
+  "Davki in gospodarstvo" => %w[nizji_davki razbremenitev_plac podjetnistvo davki_na_kapital davki_na_nepremicnine privatizacija_podjetij],
+  "Socialna politika" => %w[socialni_transferji pokojnine podpora_druzinam otroci_in_vrtci],
+  "Stanovanja" => %w[stanovanja_za_mlade cene_nepremicnin najemni_trg],
+  "Migracije in varnost" => %w[migracije azilna_politika varnost],
+  "Država in uprava" => %w[manj_birokracije ucinkovita_javna_uprava proti_korupciji digitalizacija_drzave],
+  "Infrastruktura" => %w[javni_prevoz zeleznice ceste],
+  "Okolje" => %w[okolje energetika jedrska_energija samooskrba],
+  "Družba in vrednote" => %w[cerkev_in_drzava legalizacija_konoplje],
+  "Zgodovina in spomin" => ["druga_svetovna_vojna_in_povojni_poboji", "osamosvojitev_in_odnos_do_jugoslavije"]
+}
+
+tag_categories.each do |category, tags|
+  tags.each do |tag_name|
+    tag = ActsAsTaggableOn::Tag.find_or_create_by!(name: tag_name)
+    tag.update!(category: category)
+  end
+end
+
+# Remove old tags that are no longer in the list
+valid_tags = tag_categories.values.flatten
+ActsAsTaggableOn::Tag.where.not(name: valid_tags).destroy_all
+
+puts "Ustvarjenih #{ActsAsTaggableOn::Tag.count} oznak v #{tag_categories.size} kategorijah."

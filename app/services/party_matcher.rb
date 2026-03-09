@@ -44,19 +44,29 @@ class PartyMatcher
       Analiziraj zeljo uporabnika in jo primerjaj s programi vseh strank. Za VSAKO stranko doloci ujemanje od 0 do 100.
 
       Odgovori IZKLJUCNO v JSON formatu (brez markdown, brez ```):
-      [
-        {"party_id": ID, "score": SCORE, "explanation": "Kratka obrazlozitev v slovenscini zakaj se stranka ujema ali ne ujema z zeljo."}
-      ]
+      {
+        "tags": ["tema1", "tema2", "tema3"],
+        "matches": [
+          {"party_id": ID, "score": SCORE, "explanation": "Kratka obrazlozitev v slovenscini zakaj se stranka ujema ali ne ujema z zeljo."}
+        ]
+      }
 
-      Razvrsti od najvisje do najnizje ocene. Bodi iskren in objektiven.
+      Za "tags" izberi 1-3 oznake iz tega seznama: #{ActsAsTaggableOn::Tag.pluck(:name).join(", ")}. Uporabi SAMO oznake iz tega seznama.
+
+      Razvrsti matches od najvisje do najnizje ocene. Bodi iskren in objektiven.
     PROMPT
   end
 
   def parse_response(response, parties)
     text = response.content.first.text
-    results = JSON.parse(text)
+    data = JSON.parse(text)
 
-    results.map do |result|
+    if data["tags"].present?
+      @wish.tag_list = data["tags"]
+      @wish.save!
+    end
+
+    data["matches"].map do |result|
       party = parties.find { |p| p.id == result["party_id"] }
       next unless party
 

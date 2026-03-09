@@ -406,6 +406,27 @@ body {
   padding: 20px 0;
 }
 
+.wish-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.wish-tags-inline {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.tag {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
 .about { padding: 40px 0; }
 .about h1 { margin-bottom: 16px; }
 .about h2 { margin: 32px 0 12px; }

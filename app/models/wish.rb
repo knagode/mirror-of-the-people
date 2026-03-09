@@ -1,4 +1,6 @@
 class Wish < ApplicationRecord
+  acts_as_taggable_on :tags
+
   belongs_to :profile, optional: true
   belongs_to :ai_summary, optional: true
   has_many :matches, dependent: :destroy
