@@ -51,7 +51,7 @@ class PartyMatcher
         ]
       }
 
-      Za "tags" izberi 1-3 oznake iz tega seznama: #{ActsAsTaggableOn::Tag.pluck(:name).join(", ")}. Uporabi SAMO oznake iz tega seznama.
+      Za "tags": #{TagPrompt.text}
 
       Razvrsti matches od najvisje do najnizje ocene. Bodi iskren in objektiven.
     PROMPT
