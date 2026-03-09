@@ -35,79 +35,75 @@ namespace :ai do
     abort "No wishes found" if wishes.empty?
     abort "No parties found" if parties.empty?
 
-    puts "Re-matching #{wishes.count} wishes against #{parties.count} parties in batches of 10..."
+    puts "Re-matching #{wishes.count} wishes against #{parties.count} parties in batches of 5..."
     puts "Deleting old matches..."
     Match.delete_all
 
     client = Anthropic::Client.new
-    available_tags = ActsAsTaggableOn::Tag.pluck(:name)
     total_matched = 0
 
     party_descriptions = parties.map do |party|
       "STRANKA: #{party.name}\nID: #{party.id}\nPROGRAM:\n#{party.program}"
     end.join("\n---\n\n")
 
-    wishes.in_batches(of: 10) do |batch|
+    wishes.in_batches(of: 5) do |batch|
       wishes_data = batch.map { |w| { id: w.id, content: w.content } }
       puts "\nProcessing batch of #{wishes_data.size} wishes..."
 
-      response = client.messages.create(
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 8000,
-        messages: [
-          {
-            role: "user",
-            content: <<~PROMPT
-              Si politicni svetovalec v Sloveniji. Spodaj so zelje uporabnikov in programi politicnih strank.
+      begin
+        response = client.messages.create(
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 16000,
+          messages: [
+            {
+              role: "user",
+              content: <<~PROMPT
+                Si politicni svetovalec v Sloveniji. Spodaj so zelje uporabnikov in programi politicnih strank.
 
-              STRANKE:
-              #{party_descriptions}
+                STRANKE:
+                #{party_descriptions}
 
-              ZELJE:
-              #{wishes_data.to_json}
+                ZELJE:
+                #{wishes_data.to_json}
 
-              Za VSAKO zeljo doloci ujemanje z VSAKO stranko (score 0-100) in dodeli tage.
+                Za VSAKO zeljo doloci ujemanje z VSAKO stranko (score 0-100).
 
-              Za tage: #{TagPrompt.text}
+                Odgovori IZKLJUCNO v JSON formatu (brez markdown, brez ```):
+                [
+                  {
+                    "wish_id": ID,
+                    "matches": [
+                      {"party_id": PARTY_ID, "score": SCORE, "explanation": "Kratka obrazlozitev."}
+                    ]
+                  }
+                ]
 
-              Odgovori IZKLJUCNO v JSON formatu (brez markdown, brez ```):
-              [
-                {
-                  "wish_id": ID,
-                  "tags": ["tag1", "tag2"],
-                  "matches": [
-                    {"party_id": PARTY_ID, "score": SCORE, "explanation": "Kratka obrazlozitev v slovenscini."}
-                  ]
-                }
-              ]
+                Bodi iskren in objektiven. Score naj bo 0-100. Obrazlozitev naj bo KRATKA (1 stavek).
+              PROMPT
+            }
+          ]
+        )
 
-              Bodi iskren in objektiven. Score naj bo 0-100.
-            PROMPT
-          }
-        ]
-      )
+        results = JSON.parse(response.content.first.text)
+      rescue JSON::ParserError => e
+        puts "  WARN: JSON parse error, skipping batch: #{e.message}"
+        next
+      rescue => e
+        puts "  WARN: API error, skipping batch: #{e.message}"
+        next
+      end
 
-      results = JSON.parse(response.content.first.text)
       results.each do |result|
         wish = Wish.find_by(id: result["wish_id"])
         next unless wish
 
-        # Tags
-        if result["tags"].present?
-          valid_tags = result["tags"].select { |t| available_tags.include?(t) }
-          wish.tag_list = valid_tags
-          wish.save!
-        end
-
-        # Matches
         result["matches"]&.each do |m|
           party = parties.find { |p| p.id == m["party_id"] }
           next unless party
           Match.create!(wish: wish, party: party, score: m["score"], explanation: m["explanation"])
         end
 
-        tag_str = wish.tag_list.any? ? wish.tag_list.join(", ") : "(brez)"
-        puts "  ##{wish.id}: #{result['matches']&.size || 0} matchev, tagi: #{tag_str}"
+        puts "  ##{wish.id}: #{result['matches']&.size || 0} matchev"
         total_matched += 1
       end
     end
