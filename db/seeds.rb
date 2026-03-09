@@ -216,6 +216,7 @@ tag_categories = {
   "Država in uprava" => %w[manj_birokracije ucinkovita_javna_uprava proti_korupciji digitalizacija_drzave],
   "Infrastruktura" => %w[javni_prevoz zeleznice ceste],
   "Okolje" => %w[okolje energetika jedrska_energija samooskrba],
+  "Izobraževanje" => %w[solski_sistem visoko_solstvo stipendije],
   "Družba in vrednote" => %w[cerkev_in_drzava legalizacija_konoplje],
   "Zgodovina in spomin" => ["druga_svetovna_vojna_in_povojni_poboji", "osamosvojitev_in_odnos_do_jugoslavije"]
 }
