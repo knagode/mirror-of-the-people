@@ -41,7 +41,7 @@ namespace :ai do
     total_matched = 0
 
     party_descriptions = parties.map do |party|
-      "STRANKA: #{party.name}\nID: #{party.id}\nPROGRAM:\n#{party.program}"
+      "STRANKA: #{party.name}\nID: #{party.id}\nOPIS: #{party.description}\nPROGRAM:\n#{party.program}"
     end.join("\n---\n\n")
 
     wishes.in_batches(of: 5) do |batch|

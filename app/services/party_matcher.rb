@@ -29,7 +29,7 @@ class PartyMatcher
 
   def build_prompt(parties)
     party_descriptions = parties.map do |party|
-      "STRANKA: #{party.name}\nID: #{party.id}\nPROGRAM:\n#{party.program}\n"
+      "STRANKA: #{party.name}\nID: #{party.id}\nOPIS: #{party.description}\nPROGRAM:\n#{party.program}\n"
     end.join("\n---\n\n")
 
     <<~PROMPT
