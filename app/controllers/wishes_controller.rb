@@ -1,15 +1,15 @@
 class WishesController < ApplicationController
   def index
-    @newest = Wish.includes(:comments, :votes).order(created_at: :desc).limit(20)
+    @newest = Wish.visible.includes(:comments, :votes).order(created_at: :desc).limit(20)
 
-    @most_upvoted = Wish.left_joins(:votes)
+    @most_upvoted = Wish.visible.left_joins(:votes)
       .preload(:comments, :votes)
       .group(:id)
       .having("COALESCE(SUM(votes.value), 0) > 0")
       .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
       .limit(20)
 
-    @recently_upvoted = Wish.where(
+    @recently_upvoted = Wish.visible.where(
       id: Vote.where("votes.created_at > ?", 7.days.ago)
               .where(value: 1)
               .select(:wish_id)
@@ -19,7 +19,7 @@ class WishesController < ApplicationController
       .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
       .limit(20)
 
-    @recently_commented = Wish.joins(:comments)
+    @recently_commented = Wish.visible.joins(:comments)
       .preload(:comments, :votes)
       .group(:id)
       .order(Arel.sql("MAX(comments.created_at) DESC"))

@@ -2,10 +2,10 @@ class AiSummarizer
   MIN_WISHES = Rails.env.development? ? 2 : 50
 
   def call
-    unprocessed_wishes = Wish.where(ai_summary_id: nil)
+    unprocessed_wishes = Wish.visible.where(ai_summary_id: nil)
     return if unprocessed_wishes.count < MIN_WISHES
 
-    wishes = Wish.all
+    wishes = Wish.visible
     sections = generate_summary(wishes)
     summary = AiSummary.create!(
       content: sections["summary"],
@@ -19,7 +19,7 @@ class AiSummarizer
   end
 
   def prompt
-    wishes = Wish.all
+    wishes = Wish.visible
     wishes_json = wishes_with_upvotes(wishes)
     build_prompt(wishes_json, wishes.count)
   end

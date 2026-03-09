@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_09_214537) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_09_234629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -108,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_09_214537) do
     t.datetime "updated_at", null: false
     t.bigint "profile_id"
     t.bigint "ai_summary_id"
+    t.boolean "is_ignored", default: false, null: false
     t.index ["ai_summary_id"], name: "index_wishes_on_ai_summary_id"
     t.index ["profile_id"], name: "index_wishes_on_profile_id"
   end

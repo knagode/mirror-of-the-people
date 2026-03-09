@@ -11,7 +11,7 @@ namespace :ai do
 
   desc "Force generate AI summary from all wishes (ignores minimum threshold)"
   task force_summarize: :environment do
-    wishes = Wish.all
+    wishes = Wish.visible
     abort "No wishes found" if wishes.count == 0
 
     summarizer = AiSummarizer.new
@@ -23,14 +23,14 @@ namespace :ai do
       party_matches: sections["party_matches"],
       wishes_count: wishes.count
     )
-    Wish.where(ai_summary_id: nil).update_all(ai_summary_id: summary.id)
+    Wish.visible.where(ai_summary_id: nil).update_all(ai_summary_id: summary.id)
 
     puts "Created AI summary ##{summary.id} from #{summary.wishes_count} wishes"
   end
 
   desc "Re-match all wishes against current parties (batches of 10)"
   task rematch: :environment do
-    wishes = Wish.where.missing(:matches).order(created_at: :desc)
+    wishes = Wish.visible.where.missing(:matches).order(created_at: :desc)
     parties = Party.all
     abort "No unmatched wishes found" if wishes.empty?
     abort "No parties found" if parties.empty?
@@ -111,7 +111,7 @@ namespace :ai do
 
   desc "Generate tags for all wishes (re-tags everything in batches of 50)"
   task tag_wishes: :environment do
-    wishes = Wish.order(created_at: :desc)
+    wishes = Wish.visible.order(created_at: :desc)
     abort "No wishes found" if wishes.empty?
 
     puts "Tagging #{wishes.count} wishes in batches of 50..."

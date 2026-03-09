@@ -1,6 +1,6 @@
 class StatsController < ApplicationController
   def index
-    @total_wishes = Wish.count
+    @total_wishes = Wish.visible.count
 
     # Weighted average: wishes with more upvotes count more
     # Weight = max(1, sum of votes) - downvoted wishes still count as 1
@@ -29,7 +29,7 @@ class StatsController < ApplicationController
 
     @ai_summary = AiSummary.order(created_at: :desc).first
 
-    @recent_wishes = Wish.includes(:comments, :votes)
+    @recent_wishes = Wish.visible.includes(:comments, :votes)
       .order(created_at: :desc)
       .limit(20)
 
