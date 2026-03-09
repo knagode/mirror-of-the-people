@@ -30,14 +30,12 @@ namespace :ai do
 
   desc "Re-match all wishes against current parties (batches of 10)"
   task rematch: :environment do
-    wishes = Wish.order(created_at: :desc)
+    wishes = Wish.where.missing(:matches).order(created_at: :desc)
     parties = Party.all
-    abort "No wishes found" if wishes.empty?
+    abort "No unmatched wishes found" if wishes.empty?
     abort "No parties found" if parties.empty?
 
-    puts "Re-matching #{wishes.count} wishes against #{parties.count} parties in batches of 5..."
-    puts "Deleting old matches..."
-    Match.delete_all
+    puts "Matching #{wishes.count} unmatched wishes against #{parties.count} parties in batches of 5..."
 
     client = Anthropic::Client.new
     total_matched = 0
