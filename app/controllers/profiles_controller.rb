@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   def show
     @profile = Profile.find_by!(token: params[:token])
-    save_profile_token(@profile.token)
+    save_profile_token(@profile.token) if @profile.user_id.nil? || (user_signed_in? && @profile.user_id == current_user.id)
 
     @wishes = @profile.wishes.includes(:comments, :votes).order(created_at: :desc)
 

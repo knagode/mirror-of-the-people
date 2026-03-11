@@ -1,0 +1,31 @@
+<div class="auth-form">
+  <h2>Prijava</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email, "E-poštni naslov" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, "Geslo" %>
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, "Zapomni si me" %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Prijavi se", class: "btn" %>
+    </div>
+  <% end %>
+
+  <div class="auth-links">
+    <p>Nimate računa? <%= link_to "Registrirajte se", new_user_registration_path %></p>
+    <p><%= link_to "Pozabljeno geslo?", new_password_path(resource_name) %></p>
+  </div>
+</div>

@@ -73,6 +73,94 @@ body {
 }
 .footer a:hover { text-decoration: underline; }
 
+.flash {
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin: 16px 0 0;
+  font-size: 0.9rem;
+}
+.flash-notice {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+.flash-alert {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.auth-prompt {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+.auth-prompt a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-prompt a:hover {
+  text-decoration: underline;
+}
+
+.wish-delete {
+  font-size: 0.8rem;
+  color: var(--score-low);
+  text-decoration: none;
+}
+.wish-delete:hover {
+  text-decoration: underline;
+}
+.wish-actions {
+  margin-top: 12px;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.auth-form h2 {
+  margin-bottom: 24px;
+}
+.auth-form .field {
+  margin-bottom: 16px;
+}
+.auth-form label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.auth-form .actions {
+  margin-top: 24px;
+}
+.auth-links {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+.auth-links a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
 .my-wishes { padding: 40px 0; }
 .my-wishes h1 { margin-bottom: 8px; }
 .my-wishes h2 { margin: 32px 0 16px; }

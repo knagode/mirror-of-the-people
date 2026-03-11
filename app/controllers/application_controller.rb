@@ -36,7 +36,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_profile
-    @current_profile ||= if session[:profile_token]
+    @current_profile ||= if user_signed_in? && current_user.profile
+      current_user.profile
+    elsif session[:profile_token]
       Profile.find_by(token: session[:profile_token])
     end
   end
@@ -45,7 +47,11 @@ class ApplicationController < ActionController::Base
   def find_or_create_profile!
     return current_profile if current_profile
 
-    profile = Profile.create!
+    profile = if user_signed_in?
+      Profile.create!(user: current_user)
+    else
+      Profile.create!
+    end
     save_profile_token(profile.token)
     @current_profile = profile
   end

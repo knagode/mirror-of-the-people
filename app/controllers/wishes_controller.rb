@@ -50,6 +50,17 @@ class WishesController < ApplicationController
     end
   end
 
+  def destroy
+    @wish = Wish.find(params[:id])
+
+    if user_signed_in? && current_profile && @wish.profile_id == current_profile.id
+      @wish.destroy
+      redirect_to profile_path(current_profile.token), notice: "Želja je bila izbrisana."
+    else
+      redirect_to wish_path(@wish), alert: "Nimate dovoljenja za brisanje."
+    end
+  end
+
   def matches
     @wish = Wish.find(params[:id])
     @matches = @wish.matches.includes(:party).order(score: :desc)
