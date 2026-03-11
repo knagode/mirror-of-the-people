@@ -21,6 +21,10 @@ Rails.application.routes.draw do
   get "profil/:token", to: "profiles#show", as: :profile
   delete "profil", to: "profiles#forget", as: :forget_profile
   get "oznaka/:tag", to: "tags#show", as: :tag
+  resources :articles, only: [:index, :show], path: "clanki" do
+    resources :article_reactions, only: [:create], path: "odzivi"
+    resources :comments, only: [:create]
+  end
   get "o-projektu", to: "pages#about", as: :about
   get "prompt", to: "pages#prompt", as: :prompt
 end

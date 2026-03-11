@@ -23,6 +23,18 @@
     </div>
   <% end %>
 
+  <% if @related_articles.any? %>
+    <div class="related-articles">
+      <h2>Povezani članki</h2>
+      <% @related_articles.each do |article| %>
+        <%= link_to article_path(article), class: "article-preview" do %>
+          <h3><%= article.title %></h3>
+          <p class="article-excerpt"><%= truncate(article.content, length: 200) %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
   <div id="comments" class="comments-section">
     <h2>Komentarji (<%= @wish.comments.count %>)</h2>
 

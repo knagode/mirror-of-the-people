@@ -1,0 +1,57 @@
+<div class="article"
+     data-controller="article-heatmap"
+     data-article-heatmap-url-value="<%= article_article_reactions_path(@article) %>"
+     data-article-heatmap-scores-value="<%= @scores.to_json %>"
+     data-article-heatmap-my-reactions-value="<%= @my_reactions.to_json %>">
+
+  <h1><%= @article.title %></h1>
+  <p class="article-meta"><%= @article.published_at.strftime("%-d. %-m. %Y") %></p>
+
+  <p class="article-hint">Klikni na odstavek in označi, ali se strinjaš ali ne. Barva ozadja pokaže odzive bralcev.</p>
+
+  <div class="article-body">
+    <% @segments.each_with_index do |segment, i| %>
+      <p class="article-segment"
+         data-article-heatmap-target="segment"
+         data-index="<%= i %>"
+         data-action="click->article-heatmap#select">
+        <%= segment %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="reaction-panel hidden" data-article-heatmap-target="panel">
+    <div class="reaction-panel-text" data-article-heatmap-target="panelText"></div>
+    <div class="reaction-panel-actions">
+      <button class="reaction-btn reaction-like" data-article-heatmap-target="likeBtn" data-action="click->article-heatmap#like" disabled>
+        &#9650; Strinjam se
+      </button>
+      <button class="reaction-btn reaction-dislike" data-article-heatmap-target="dislikeBtn" data-action="click->article-heatmap#dislike" disabled>
+        &#9660; Ne strinjam se
+      </button>
+    </div>
+    <div class="reaction-panel-stats" data-article-heatmap-target="panelStats"></div>
+  </div>
+
+  <div id="comments" class="comments-section">
+    <h2>Komentarji (<%= @article.comments.count %>)</h2>
+
+    <%= form_with url: article_comments_path(@article), method: :post, class: "comment-form" do |f| %>
+      <%= f.text_area :content, placeholder: "Napiši komentar...", rows: 3, class: "comment-input", required: true, name: "comment[content]" %>
+      <%= f.submit "Komentiraj", class: "btn btn-small" %>
+    <% end %>
+
+    <div class="comments-list">
+      <% @article.comments.order(created_at: :desc).each do |comment| %>
+        <div class="comment-card">
+          <p class="comment-content"><%= comment.content %></p>
+          <span class="comment-time"><%= time_ago_in_words(comment.created_at) %> nazaj</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="article-back">
+    <%= link_to "Vsi članki", articles_path, class: "btn btn-secondary" %>
+  </div>
+</div>

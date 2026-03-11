@@ -286,3 +286,37 @@ valid_tags = tag_categories.values.flatten
 ActsAsTaggableOn::Tag.where.not(name: valid_tags).destroy_all
 
 puts "Ustvarjenih #{ActsAsTaggableOn::Tag.count} oznak v #{tag_categories.size} kategorijah."
+
+articles = [
+  {
+    title: "Prazne nepremičnine in stanovanjska kriza",
+    slug: "prazne-nepremicnine-in-stanovanjska-kriza",
+    published_at: Time.zone.parse("2026-03-11"),
+    tags: %w[stanovanja_za_mlade cene_nepremicnin najemni_trg davki_na_nepremicnine manj_birokracije javni_prevoz],
+    content: <<~CONTENT
+      Stanovanjsko stisko bi reševal z mešanico štirih politik, ne z enim "čudežnim" ukrepom.
+
+      Prvič, država mora povečati ponudbo stanovanj. OECD poudarja, da so v državah z veliko regulativnimi ovirami, počasnim umeščanjem v prostor in nizko gostoto gradnje stanovanja praviloma manj dostopna; med priporočili izrecno izpostavlja več gradnje, večjo gostoto tam, kjer je infrastruktura že zgrajena, ter manj administrativnih ovir. To za Slovenijo pomeni hitrejše postopke za OPN, več gradnje ob železnicah in avtobusnih koridorjih ter manj parkirnih minimumov v mestih.
+
+      Drugič, država mora sama graditi ali dolgoročno financirati neprofitni najemni fond. Dunaj je klasičen dober primer, ker ima velik delež stanovanj v dostopnem oziroma reguliranem najemnem segmentu; v eni primerjalni študiji je navedeno, da je 48,1 % vseh stanovanj v mestu del neke oblike subvencioniranega ali dostopnega fonda. Lekcija za Slovenijo ni "kopiraj Dunaj", ampak: če želiš nižje najemnine, moraš imeti velik, trajen javni ali neprofitni fond, ne le občasnih razpisov.
+
+      Tretjič, treba je odkleniti gradnjo v že urbaniziranih območjih. Minneapolis je dober primer, ker je s kombinacijo večje dovoljene gostote ob prometnih koridorjih in odprave nekaterih omejitev stanovanjski fond med letoma 2017 in 2022 povečal za 12 %, medtem ko so najemnine zrasle le za 1 %; v preostanku Minnesote je fond zrasel za 4 %, najemnine pa za 14 %. To je močan argument, da "več ponudbe" ni floskula, ampak deluje, če je izvedena dovolj odločno.
+
+      Četrtič, treba je ločiti prvo bivanje od investicijske kupčije. OECD opozarja, da lahko kratkoročni ukrepi za spodbujanje lastništva brez povečanja ponudbe le še dvignejo cene, stroge kontrole ali prepovedi pa lahko zmanjšajo interes za oddajanje in investicije. Zato bi v Sloveniji predlagal ciljno: večjo obdavčitev praznih stanovanj in špekulativnega držanja nepremičnin, hkrati pa davčne in kreditne ugodnosti za prvi dom ter za gradnjo dolgoročnih najemnih stanovanj.
+
+      Med tujimi primeri je koristen tudi Singapur, kjer HDB kot javna agencija sistemsko gradi in upravlja velik del stanovanjskega fonda; po uradnih podatkih v HDB stanovanjih živi več kot 80 % prebivalcev. Singapurski model je zelo učinkovit, a je za Slovenijo preveč centraliziran in specifičen. Bolj realistična kombinacija za nas bi bila: dunajski dolgoročni javni najemni fond + minneapoliška sprostitev gradnje + slovenska regionalna gradnja ob javnem prometu.
+
+      Če to prevedem v 5 konkretnih slovenskih potez: pospešeni postopki za zazidljiva območja, državni in občinski sklad za gradnjo neprofitnih najemnih stanovanj, višja gostota ob postajah in vpadnicah, davek na prazna stanovanja ter jamstvena shema za prvi nakup. To je verjetno najbolj realna pot, da se stanovanjska stiska v nekaj letih začne dejansko rahljati, ne le politično opisovati.
+    CONTENT
+  }
+]
+
+articles.each do |attrs|
+  tags = attrs.delete(:tags) || []
+  article = Article.find_or_initialize_by(slug: attrs[:slug])
+  article.assign_attributes(attrs)
+  article.tag_list = tags
+  article.save!
+end
+
+puts "#{Article.count} člankov v bazi."

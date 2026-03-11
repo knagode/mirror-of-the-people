@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_09_234629) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_11_105021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,12 +23,36 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_09_234629) do
     t.text "party_matches"
   end
 
+  create_table "article_reactions", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.integer "segment_index"
+    t.bigint "profile_id", null: false
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id", "segment_index", "profile_id"], name: "idx_article_reactions_unique", unique: true
+    t.index ["article_id"], name: "index_article_reactions_on_article_id"
+    t.index ["profile_id"], name: "index_article_reactions_on_profile_id"
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.text "content"
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
-    t.bigint "wish_id", null: false
+    t.bigint "wish_id"
     t.bigint "profile_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["profile_id"], name: "index_comments_on_profile_id"
     t.index ["wish_id"], name: "index_comments_on_wish_id"
   end
@@ -113,6 +137,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_09_234629) do
     t.index ["profile_id"], name: "index_wishes_on_profile_id"
   end
 
+  add_foreign_key "article_reactions", "articles"
+  add_foreign_key "article_reactions", "profiles"
   add_foreign_key "comments", "profiles"
   add_foreign_key "comments", "wishes"
   add_foreign_key "matches", "parties"

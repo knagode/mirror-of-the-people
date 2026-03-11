@@ -43,6 +43,11 @@ class WishesController < ApplicationController
   def show
     @wish = Wish.find(params[:id])
     @matches = @wish.matches.includes(:party).order(score: :desc)
+    @related_articles = if @wish.tag_list.any?
+      Article.published.tagged_with(@wish.tag_list, any: true)
+    else
+      Article.none
+    end
   end
 
   def matches

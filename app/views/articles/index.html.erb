@@ -1,0 +1,14 @@
+<div class="articles">
+  <h1>Članki</h1>
+  <p class="articles-subtitle">Na podlagi mnenj o specifičnih tematikah smo prosili AI, da odgovori, kako bi se lotil problematike</p>
+
+  <div class="articles-list">
+    <% @articles.each do |article| %>
+      <%= link_to article_path(article), class: "article-preview" do %>
+        <h2><%= article.title %></h2>
+        <p class="article-excerpt"><%= truncate(article.content, length: 200) %></p>
+        <span class="article-date"><%= article.published_at.strftime("%-d. %-m. %Y") %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
