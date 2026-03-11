@@ -146,6 +146,15 @@ body {
   outline: none;
   border-color: var(--primary);
 }
+.auth-form p {
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.link-wishes-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
 .auth-form .actions {
   margin-top: 24px;
 }

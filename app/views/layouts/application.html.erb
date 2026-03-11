@@ -67,7 +67,7 @@
         </div>
         <% unless user_signed_in? %>
           <div class="auth-prompt">
-            <p>Z <%= link_to "registracijo", new_user_registration_path %> se globje povežite s projektom in ohranite želje na vseh napravah ali jih v celoti izbrišete iz naših strežnikov. Že imate račun? <%= link_to "Prijavite se", new_user_session_path %>.</p>
+            <p>Lahko se tudi <%= link_to "registrirate", new_user_registration_path %> in tako pokažete, da vam je projekt zanimiv, hkrati pa nam omogočite, da vas lahko v prihodnje še kontaktiramo (če bo obstajal dober razlog za to). Po registraciji vašega e-poštnega naslova ne bomo samodejno povezali z vašimi željami, vam bomo pa to možnost omogočili. Ne zanima nas, kdo je zapisal posamezno željo. Omogočili vam bomo, da svoje želje izbrišete ali odstranite povezavo med željo in svojim e-poštnim naslovom. Vašo zasebnost cenimo in spoštujemo. Že imate račun? Prijavite se. <%= link_to "Prijavite se", new_user_session_path %>.</p>
           </div>
         <% end %>
       <% end %>

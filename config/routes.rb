@@ -13,10 +13,15 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  get "povezi-zelje", to: "link_wishes#show", as: :link_wishes
+  post "povezi-zelje/da", to: "link_wishes#accept", as: :accept_link_wishes
+  post "povezi-zelje/ne", to: "link_wishes#decline", as: :decline_link_wishes
+
   root "wishes#index"
   resources :wishes, only: [:create, :show, :destroy] do
     member do
       get :matches
+      delete :disown
     end
     resource :vote, only: [:create]
     resources :comments, only: [:create]
@@ -24,6 +29,7 @@ Rails.application.routes.draw do
   get "statistika", to: "stats#index"
   get "profil/:token", to: "profiles#show", as: :profile
   delete "profil", to: "profiles#forget", as: :forget_profile
+  delete "profil/odklopi", to: "profiles#unlink", as: :unlink_profile
   get "oznaka/:tag", to: "tags#show", as: :tag
   resources :articles, only: [:index, :show], path: "clanki" do
     resources :article_reactions, only: [:create], path: "odzivi"

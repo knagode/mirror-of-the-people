@@ -1,0 +1,10 @@
+<div class="auth-form">
+  <h2>Poveži želje z računom?</h2>
+
+  <p>Pred registracijo si oddal/a <%= @pending_profile.wishes.count %> <%= @pending_profile.wishes.count == 1 ? "željo" : "želj" %>. Ali želiš te želje povezati s svojim računom (<strong><%= current_user.email %></strong>)?</p>
+
+  <div class="link-wishes-actions">
+    <%= link_to "Da, poveži želje", accept_link_wishes_path, data: { turbo_method: :post }, class: "btn" %>
+    <%= link_to "Raje ne", decline_link_wishes_path, data: { turbo_method: :post }, class: "btn btn-secondary" %>
+  </div>
+</div>

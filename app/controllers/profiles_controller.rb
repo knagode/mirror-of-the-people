@@ -20,4 +20,13 @@ class ProfilesController < ApplicationController
     @current_profile = nil
     redirect_to root_path
   end
+
+  def unlink
+    if user_signed_in? && current_profile&.user_id == current_user.id
+      current_profile.update!(user: nil)
+      redirect_to profile_path(current_profile.token), notice: "Profil je bil odklopljen od računa."
+    else
+      redirect_to root_path
+    end
+  end
 end

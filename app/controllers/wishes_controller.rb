@@ -61,6 +61,17 @@ class WishesController < ApplicationController
     end
   end
 
+  def disown
+    @wish = Wish.find(params[:id])
+
+    if user_signed_in? && current_profile && @wish.profile_id == current_profile.id
+      @wish.update!(profile: nil)
+      redirect_to profile_path(current_profile.token), notice: "Povezava med željo in tvojim profilom je bila odstranjena."
+    else
+      redirect_to wish_path(@wish), alert: "Nimate dovoljenja za to dejanje."
+    end
+  end
+
   def matches
     @wish = Wish.find(params[:id])
     @matches = @wish.matches.includes(:party).order(score: :desc)

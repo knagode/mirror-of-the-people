@@ -1,16 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  protected
-
-  def after_sign_up_path_for(resource)
-    link_profile_to_user(resource)
-    root_path
-  end
-
-  private
-
-  def link_profile_to_user(user)
-    profile = current_profile || Profile.create!
-    profile.update!(user: user)
-    save_profile_token(profile.token)
+  def create
+    super do |user|
+      if user.persisted? && cookies[:profile_token]
+        sign_in(user)
+        session[:pending_profile_token] = cookies[:profile_token]
+        return redirect_to link_wishes_path, status: :see_other
+      end
+    end
   end
 end
