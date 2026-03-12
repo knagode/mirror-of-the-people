@@ -4,7 +4,7 @@
       <%= render "vote_buttons", wish: @wish %>
       <div>
         <h2>Želim si ...</h2>
-        <p class="wish-content"><%= @wish.content %></p>
+        <div class="wish-content"><%= simple_format(h(@wish.content)) %></div>
         <% if @wish.tag_list.any? %>
           <div class="wish-tags">
             <% @wish.tag_list.each do |tag| %>
