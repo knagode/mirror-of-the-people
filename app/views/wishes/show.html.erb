@@ -12,12 +12,11 @@
             <% end %>
           </div>
         <% end %>
-        <% if user_signed_in? && current_profile && @wish.profile_id == current_profile.id %>
-          <div class="wish-actions">
-            <%= link_to "Odveži od profila", disown_wish_path(@wish), data: { turbo_method: :delete, turbo_confirm: "Želja bo ostala, a ne bo več povezana s tvojim profilom." }, class: "wish-delete" %>
-            <%= link_to "Izbriši željo", wish_path(@wish), data: { turbo_method: :delete, turbo_confirm: "Ali res želite izbrisati to željo?" }, class: "wish-delete" %>
-          </div>
-        <% end %>
+        <%# TODO: omogoči ko bo registracija aktivna %>
+        <%# if user_signed_in? && current_profile && @wish.profile_id == current_profile.id %>
+        <%#   link_to "Odveži od profila", disown_wish_path(@wish), ... %>
+        <%#   link_to "Izbriši željo", wish_path(@wish), ... %>
+        <%# end %>
       </div>
     </div>
   </div>

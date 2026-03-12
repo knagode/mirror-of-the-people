@@ -2,20 +2,13 @@
   <h1>Moje želje</h1>
   <p class="subtitle">Tvoj skupni profil na podlagi <%= @wishes.count %> <%= @wishes.count == 1 ? "želje" : "želj" %>.</p>
 
-  <% if user_signed_in? && @profile.user_id == current_user.id %>
-    <div class="profile-url-box">
-      <p>Tvoj profil je povezan z računom <strong><%= current_user.email %></strong>. Če želiš, lahko odklopiš profil od računa — želje bodo ostale, a profil bo spet anonimen.</p>
-      <%= link_to "Odklopi profil od računa", unlink_profile_path, data: { turbo_method: :delete, turbo_confirm: "Ali res želiš odklopiti profil od računa? Profil bo postal anonimen." }, class: "wish-delete" %>
+  <div class="profile-url-box">
+    <p>Shrani ta URL, da ohraniš dostop do svojega profila. Z njim se lahko vrneš kadarkoli, tudi iz drugega brskalnika.</p>
+    <div class="profile-url-field">
+      <input type="text" value="<%= profile_url(@profile.token) %>" readonly class="profile-url-input" id="profile-url">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('profile-url').value).then(() => this.textContent = 'Kopirano!')" class="btn btn-small">Kopiraj</button>
     </div>
-  <% else %>
-    <div class="profile-url-box">
-      <p>Shrani ta URL, da ohraniš dostop do svojega profila. Z njim se lahko vrneš kadarkoli, tudi iz drugega brskalnika.</p>
-      <div class="profile-url-field">
-        <input type="text" value="<%= profile_url(@profile.token) %>" readonly class="profile-url-input" id="profile-url">
-        <button onclick="navigator.clipboard.writeText(document.getElementById('profile-url').value).then(() => this.textContent = 'Kopirano!')" class="btn btn-small">Kopiraj</button>
-      </div>
-    </div>
-  <% end %>
+  </div>
 
   <% if @party_scores.any? %>
     <h2>Tvoje povprečno ujemanje s strankami</h2>
