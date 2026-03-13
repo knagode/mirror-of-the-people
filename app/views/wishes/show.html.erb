@@ -28,17 +28,17 @@
     </div>
   <% end %>
 
-  <% if @related_articles.any? %>
-    <div class="related-articles">
-      <h2>Povezani članki</h2>
-      <% @related_articles.each do |article| %>
-        <%= link_to article_path(article), class: "article-preview" do %>
-          <h3><%= article.title %></h3>
-          <p class="article-excerpt"><%= truncate(article.content, length: 200) %></p>
-        <% end %>
-      <% end %>
-    </div>
-  <% end %>
+  <%# <% if @related_articles.any? %>
+  <%#   <div class="related-articles"> %>
+  <%#     <h2>Povezani članki</h2> %>
+  <%#     <% @related_articles.each do |article| %> %>
+  <%#       <%= link_to article_path(article), class: "article-preview" do %> %>
+  <%#         <h3><%= article.title %></h3> %>
+  <%#         <p class="article-excerpt"><%= truncate(article.content, length: 200) %></p> %>
+  <%#       <% end %> %>
+  <%#     <% end %> %>
+  <%#   </div> %>
+  <%# <% end %> %>
 
   <% if @similar_wishes.any? %>
     <div class="similar-wishes">
