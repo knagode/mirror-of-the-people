@@ -34,6 +34,7 @@ class WishesController < ApplicationController
     )
 
     if @wish.save
+      PartyMatcherJob.perform_later(@wish.id)
       redirect_to wish_path(@wish)
     else
       render :index, status: :unprocessable_entity
@@ -78,10 +79,9 @@ class WishesController < ApplicationController
     @matches = @wish.matches.includes(:party).order(score: :desc)
 
     if @matches.empty?
-      PartyMatcher.new(@wish).call
-      @matches = @wish.matches.reload.includes(:party).order(score: :desc)
+      render partial: "matches_loading", locals: { wish: @wish }
+    else
+      render partial: "matches", locals: { matches: @matches, wish: @wish }
     end
-
-    render partial: "matches", locals: { matches: @matches, wish: @wish }
   end
 end

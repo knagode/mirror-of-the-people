@@ -1,13 +1,22 @@
-<div class="explore-results">
-  <div class="explore-answer">
-    <h2><%= @explore_query.question %></h2>
-    <p class="explore-query-meta-detail"><%= time_ago_in_words(@explore_query.created_at) %> nazaj · <%= @explore_query.wishes_count %> relevantnih želj</p>
-    <div class="explore-answer-content">
-      <%= @explore_query.answer.html_safe %>
+<% if @explore_query.status == "pending" %>
+  <meta http-equiv="refresh" content="3">
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Iščem relevantne želje in pripravljam povzetek...</p>
+    <p class="explore-query-meta"><%= @explore_query.question %></p>
+  </div>
+<% else %>
+  <div class="explore-results">
+    <div class="explore-answer">
+      <h2><%= @explore_query.question %></h2>
+      <p class="explore-query-meta-detail"><%= time_ago_in_words(@explore_query.created_at) %> nazaj · <%= @explore_query.wishes_count %> relevantnih želj</p>
+      <div class="explore-answer-content">
+        <%= @explore_query.answer.html_safe %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= link_to "← Nazaj na raziskovanje", explore_path, class: "btn btn-secondary" %>
     </div>
   </div>
-
-  <div class="actions">
-    <%= link_to "← Nazaj na raziskovanje", explore_path, class: "btn btn-secondary" %>
-  </div>
-</div>
+<% end %>

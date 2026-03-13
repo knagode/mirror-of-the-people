@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "matches" do %>
+  <div class="loading" data-controller="reload" data-reload-interval-value="3000" data-reload-url-value="<%= matches_wish_path(wish) %>">
+    <div class="spinner"></div>
+    <p>Umetna inteligenca analizira tvojo željo in jo primerja s programi strank...</p>
+  </div>
+<% end %>
