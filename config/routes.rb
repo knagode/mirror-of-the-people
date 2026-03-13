@@ -35,6 +35,9 @@ Rails.application.routes.draw do
     resources :article_reactions, only: [:create], path: "odzivi"
     resources :comments, only: [:create]
   end
+  get "raziskuj", to: "explore#show", as: :explore
+  post "raziskuj", to: "explore#search", as: :explore_search
+  get "raziskuj/:id", to: "explore#query", as: :explore_query
   get "o-projektu", to: "pages#about", as: :about
   get "prompt", to: "pages#prompt", as: :prompt
 end

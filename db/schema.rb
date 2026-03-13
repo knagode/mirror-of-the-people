@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_13_080013) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_13_100952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -56,6 +56,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_13_080013) do
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["profile_id"], name: "index_comments_on_profile_id"
     t.index ["wish_id"], name: "index_comments_on_wish_id"
+  end
+
+  create_table "explore_queries", force: :cascade do |t|
+    t.text "question"
+    t.integer "wishes_count"
+    t.text "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "matches", force: :cascade do |t|

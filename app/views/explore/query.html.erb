@@ -1,0 +1,13 @@
+<div class="explore-results">
+  <div class="explore-answer">
+    <h2><%= @explore_query.question %></h2>
+    <p class="explore-query-meta-detail"><%= time_ago_in_words(@explore_query.created_at) %> nazaj · <%= @explore_query.wishes_count %> relevantnih želj</p>
+    <div class="explore-answer-content">
+      <%= @explore_query.answer.html_safe %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= link_to "← Nazaj na raziskovanje", explore_path, class: "btn btn-secondary" %>
+  </div>
+</div>

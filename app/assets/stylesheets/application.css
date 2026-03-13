@@ -12,6 +12,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+.hidden { display: none !important; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -889,4 +890,68 @@ body {
 }
 .article-back {
   margin-top: 40px;
+}
+
+.explore-results {
+  margin-top: 32px;
+}
+.explore-answer {
+  margin-bottom: 32px;
+}
+.explore-answer h2 {
+  margin-bottom: 12px;
+}
+.explore-answer-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  line-height: 1.7;
+}
+.explore-answer-content p {
+  margin-bottom: 12px;
+}
+.explore-answer-content p:last-child {
+  margin-bottom: 0;
+}
+.explore-wishes {
+  margin-top: 24px;
+}
+.explore-wishes h2 {
+  margin-bottom: 12px;
+}
+.explore-recent {
+  margin-top: 32px;
+}
+.explore-recent h2 {
+  margin-bottom: 12px;
+}
+.explore-queries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.explore-query-card {
+  display: block;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+.explore-query-card:hover {
+  border-color: var(--primary);
+}
+.explore-query-question {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.explore-query-meta, .explore-query-meta-detail {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+.explore-query-meta-detail {
+  margin-bottom: 16px;
 }
