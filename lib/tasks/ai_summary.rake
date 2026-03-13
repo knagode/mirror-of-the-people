@@ -159,4 +159,9 @@ namespace :ai do
 
     puts "\nTagged #{total_tagged}/#{wishes.count} wishes"
   end
+
+  desc "Generate embeddings for all wishes without one"
+  task embed: :environment do
+    WishEmbedder.new.embed_all
+  end
 end

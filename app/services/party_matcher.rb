@@ -19,6 +19,8 @@ class PartyMatcher
     )
 
     parse_response(response, parties)
+
+    generate_embedding if @wish.embedding.nil?
   end
 
   private
@@ -55,6 +57,12 @@ class PartyMatcher
 
       Razvrsti matches od najvisje do najnizje ocene. Bodi iskren in objektiven.
     PROMPT
+  end
+
+  def generate_embedding
+    WishEmbedder.new.embed(@wish)
+  rescue => e
+    Rails.logger.warn "Failed to generate embedding for wish ##{@wish.id}: #{e.message}"
   end
 
   def parse_response(response, parties)

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_11_233111) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_13_080013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
   create_table "ai_summaries", force: :cascade do |t|
     t.text "content"
@@ -148,6 +149,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_11_233111) do
     t.bigint "profile_id"
     t.bigint "ai_summary_id"
     t.boolean "is_ignored", default: false, null: false
+    t.vector "embedding", limit: 1536
     t.index ["ai_summary_id"], name: "index_wishes_on_ai_summary_id"
     t.index ["profile_id"], name: "index_wishes_on_profile_id"
   end

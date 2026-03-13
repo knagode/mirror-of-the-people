@@ -703,6 +703,27 @@ body {
   margin-bottom: 6px;
 }
 
+.similar-wishes {
+  margin: 32px 0;
+}
+.similar-wishes h2 {
+  margin-bottom: 12px;
+}
+.similar-wish-wrapper {
+  position: relative;
+}
+.similarity-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  z-index: 1;
+}
+
 .articles { padding: 40px 0; }
 .articles h1 { margin-bottom: 8px; }
 .articles-subtitle {

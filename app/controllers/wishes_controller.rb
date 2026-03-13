@@ -48,6 +48,7 @@ class WishesController < ApplicationController
     else
       Article.none
     end
+    @similar_wishes = @wish.similar_wishes(limit: 5)
   end
 
   def destroy

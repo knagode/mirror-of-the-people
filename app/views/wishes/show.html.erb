@@ -40,6 +40,21 @@
     </div>
   <% end %>
 
+  <% if @similar_wishes.any? %>
+    <div class="similar-wishes">
+      <h2>Podobne želje</h2>
+      <div class="recent-wishes">
+        <% @similar_wishes.each do |wish| %>
+          <div class="similar-wish-wrapper">
+            <% similarity = ((1 - wish.neighbor_distance) * 100).round %>
+            <span class="similarity-badge"><%= similarity %>% podobnost</span>
+            <%= render "wish", wish: wish %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div id="comments" class="comments-section">
     <h2>Komentarji (<%= @wish.comments.count %>)</h2>
 
