@@ -340,6 +340,22 @@ body {
   border-color: var(--primary);
 }
 
+.wish-hint {
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+  min-height: 1.2em;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: left;
+  transition: background-color 0.2s, color 0.2s;
+}
+.wish-hint:empty {
+  padding: 0;
+}
+.hint-short { color: #922b21; background-color: #fdedec; }
+.hint-medium { color: #7e5109; background-color: #fef5e7; }
+.hint-good { color: #1e8449; background-color: #eafaf1; }
+
 .btn {
   display: inline-block;
   background: var(--primary);

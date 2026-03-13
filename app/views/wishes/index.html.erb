@@ -2,8 +2,9 @@
   <h1>Kaj si želiš od države?</h1>
   <p class="subtitle">Napiši svojo željo, umetna inteligenca ti bo predlagala, katere stranke so ti najbližje.</p>
 
-  <%= form_with url: wishes_path, method: :post, class: "wish-form" do |f| %>
-    <%= f.text_area :content, placeholder: "Npr: Želim si boljše javno zdravstvo, nižje davke za mlade podjetnike in več vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true %>
+  <%= form_with url: wishes_path, method: :post, class: "wish-form", data: { controller: "wish-form" } do |f| %>
+    <%= f.text_area :content, placeholder: "Npr: Želim si boljše javno zdravstvo, nižje davke za mlade podjetnike in več vlaganja v obnovljive vire energije...", rows: 5, class: "wish-input", required: true, data: { wish_form_target: "input", action: "input->wish-form#update" } %>
+    <p class="wish-hint" data-wish-form-target="hint"></p>
     <%= f.submit "Analiziraj", class: "btn" %>
     <p class="form-notice">Tvoja želja bo javno objavljena in vidna vsem obiskovalcem. <br/>V bazi ne hranimo tvojega IP-ja, če pa želite maksimalno anonimnost, lahko uporabite <%= link_to "Brave brskalnik", "https://brave.com", target: "_blank" %>, ki podpira proxy strežnik ali Tor omrežje.</p>
   <% end %>
