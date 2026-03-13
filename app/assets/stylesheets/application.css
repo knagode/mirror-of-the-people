@@ -46,7 +46,7 @@ body {
   text-decoration: none;
 }
 
-.navbar div {
+.nav-links {
   display: flex;
   gap: 20px;
 }
@@ -57,6 +57,57 @@ body {
   font-weight: 500;
 }
 .nav-link:hover { color: var(--primary); }
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-direction: column;
+  gap: 5px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.hamburger-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: 12px 20px;
+    gap: 12px;
+  }
+  .nav-links.nav-open {
+    display: flex;
+  }
+  .navbar .container {
+    position: relative;
+  }
+}
 
 .footer {
   border-top: 1px solid var(--border);
