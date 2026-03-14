@@ -1006,3 +1006,42 @@ body {
 .explore-query-meta-detail {
   margin-bottom: 16px;
 }
+
+.clusters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+.cluster-card {
+  display: block;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+.cluster-card:hover {
+  border-color: var(--primary);
+}
+.cluster-card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+.cluster-summary {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+.cluster-meta {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+.empty-state {
+  color: var(--text-light);
+  text-align: center;
+  padding: 40px 0;
+}

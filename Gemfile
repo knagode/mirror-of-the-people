@@ -68,3 +68,5 @@ end
 gem "devise"
 gem "neighbor"
 gem "ruby-openai"
+gem "kmeans-clusterer"
+gem "narray"

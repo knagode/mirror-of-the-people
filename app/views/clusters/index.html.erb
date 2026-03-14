@@ -1,0 +1,18 @@
+<div class="hero">
+  <h1>Teme</h1>
+  <p class="subtitle">Želje državljanov, grupirane po tematskih skupinah s pomočjo umetne inteligence.</p>
+</div>
+
+<% if @clusters.any? %>
+  <div class="clusters-list">
+    <% @clusters.each do |cluster| %>
+      <%= link_to cluster_path(cluster), class: "cluster-card" do %>
+        <h2><%= cluster.name %></h2>
+        <p class="cluster-summary"><%= cluster.summary %></p>
+        <span class="cluster-meta"><%= cluster.wishes_count %> želj</span>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <p class="empty-state">Skupin še ni. Počakajte na naslednjo analizo.</p>
+<% end %>

@@ -164,4 +164,21 @@ namespace :ai do
   task embed: :environment do
     WishEmbedder.new.embed_all
   end
+
+  desc "Cluster wishes by embedding similarity (optional K=n)"
+  task cluster: :environment do
+    k = ENV["K"]&.to_i
+    puts "Clustering wishes#{k ? " into #{k} groups" : " (auto K)"}..."
+
+    clusters = WishClusterer.new(k: k).call
+    if clusters
+      clusters.each do |c|
+        puts "\n#{c.name} (#{c.wishes_count} želj)"
+        puts "  #{c.summary}"
+      end
+      puts "\nUstvarjenih #{clusters.size} skupin."
+    else
+      puts "Premalo želj z embeddingi (min 5)."
+    end
+  end
 end

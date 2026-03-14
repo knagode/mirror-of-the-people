@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get "raziskuj", to: "explore#show", as: :explore
   post "raziskuj", to: "explore#search", as: :explore_search
   get "raziskuj/:id", to: "explore#query", as: :explore_query
+  resources :clusters, only: [:index, :show], path: "teme"
   get "o-projektu", to: "pages#about", as: :about
   get "prompt", to: "pages#prompt", as: :prompt
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_13_102339) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_14_122804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -151,6 +151,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_13_102339) do
     t.index ["wish_id"], name: "index_votes_on_wish_id"
   end
 
+  create_table "wish_clusters", force: :cascade do |t|
+    t.string "name"
+    t.text "summary"
+    t.integer "wishes_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wishes", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -159,8 +167,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_13_102339) do
     t.bigint "ai_summary_id"
     t.boolean "is_ignored", default: false, null: false
     t.vector "embedding", limit: 1536
+    t.bigint "wish_cluster_id"
     t.index ["ai_summary_id"], name: "index_wishes_on_ai_summary_id"
     t.index ["profile_id"], name: "index_wishes_on_profile_id"
+    t.index ["wish_cluster_id"], name: "index_wishes_on_wish_cluster_id"
   end
 
   add_foreign_key "article_reactions", "articles"
@@ -175,4 +185,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_13_102339) do
   add_foreign_key "votes", "wishes"
   add_foreign_key "wishes", "ai_summaries"
   add_foreign_key "wishes", "profiles"
+  add_foreign_key "wishes", "wish_clusters"
 end

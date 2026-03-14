@@ -1,0 +1,14 @@
+<div class="hero">
+  <h1><%= @cluster.name %></h1>
+  <p class="subtitle"><%= @cluster.summary %></p>
+</div>
+
+<div class="recent-wishes">
+  <% @wishes.each do |wish| %>
+    <%= render "wishes/wish", wish: wish %>
+  <% end %>
+</div>
+
+<div class="actions">
+  <%= link_to "← Vse teme", clusters_path, class: "btn btn-secondary" %>
+</div>
