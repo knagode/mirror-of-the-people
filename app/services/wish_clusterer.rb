@@ -10,13 +10,13 @@ class WishClusterer
     k = @k || auto_k(wishes.size)
     data = wishes.map { |w| w.embedding.to_a }
 
-    clusters = KMeansClusterer.run(k, data, runs: 10)
+    result = KMeansClusterer.run(k, data, runs: 10)
 
     WishCluster.transaction do
       Wish.where.not(wish_cluster_id: nil).update_all(wish_cluster_id: nil)
       WishCluster.delete_all
 
-      clusters.each_with_index do |cluster, i|
+      result.clusters.each_with_index do |cluster, i|
         next if cluster.points.empty?
 
         cluster_wishes = cluster.points.map { |p| wishes[p.id] }
