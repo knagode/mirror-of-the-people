@@ -4,8 +4,22 @@ class ApplicationController < ActionController::Base
 
   before_action :enforce_canonical_domain
   before_action :restore_profile_from_params
+  before_action :block_writes_if_read_only
+
+  helper_method :read_only?
 
   private
+
+  def read_only?
+    Rails.configuration.read_only
+  end
+
+  def block_writes_if_read_only
+    return unless read_only?
+    return if request.get? || request.head?
+
+    head :forbidden
+  end
 
   CANONICAL_HOST = "www.zrcaloljudi.com"
 

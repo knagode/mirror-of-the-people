@@ -23,5 +23,8 @@ module PolicyMirror
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # When true, all POST/PATCH/PUT/DELETE requests are blocked (project is finished)
+    config.read_only = true
   end
 end

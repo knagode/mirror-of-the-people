@@ -65,5 +65,17 @@
         <p>ZrcaloLjudi je odprtokodni projekt. <%= link_to "Izvorna koda na GitHub", "https://github.com/knagode/policy-mirror", target: "_blank" %></p>
       </div>
     </footer>
+    <% if read_only? %>
+      <script>
+        document.addEventListener("click", function(e) {
+          var el = e.target.closest(".wish-form input, .wish-form textarea, .wish-form .btn, .comment-form input, .comment-form textarea, .comment-form .btn, .vote-buttons button, .vote-buttons a");
+          if (el) {
+            e.preventDefault();
+            e.stopPropagation();
+            alert("Ta projekt je zakljucen");
+          }
+        }, true);
+      </script>
+    <% end %>
   </body>
 </html>
